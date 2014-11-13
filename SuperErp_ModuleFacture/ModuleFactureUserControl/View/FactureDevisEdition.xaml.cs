@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModuleFactureUserControl
+namespace ModuleFactureUserControl.View
 {
     /// <summary>
-    /// Logique d'interaction pour UserControl1.xaml
+    /// Logique d'interaction pour FactureDevisEdition.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class FactureDevisEdition : UserControl
     {
-        public UserControl1()
+        public FactureDevisEdition()
         {
             InitializeComponent();
         }
