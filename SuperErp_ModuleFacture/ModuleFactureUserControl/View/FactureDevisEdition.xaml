@@ -104,7 +104,7 @@
         
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition />
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <!--Boutons Ajout / Modfication / Suppression-->
