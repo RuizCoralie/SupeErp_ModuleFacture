@@ -65,6 +65,9 @@
     <Compile Include="View\FactureDevisEdition.xaml.cs">
       <DependentUpon>FactureDevisEdition.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FactureDevisEditionV2.xaml.cs">
+      <DependentUpon>FactureDevisEditionV2.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ListeFactureDevis.xaml.cs">
       <DependentUpon>ListeFactureDevis.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\FactureDevisEdition.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FactureDevisEditionV2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
