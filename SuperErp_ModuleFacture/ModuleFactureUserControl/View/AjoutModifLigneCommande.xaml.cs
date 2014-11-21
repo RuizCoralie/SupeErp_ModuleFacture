@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ModuleFactureUserControl.View
 {
     /// <summary>
-    /// Logique d'interaction pour FactureDevisEditionV2.xaml
+    /// Logique d'interaction pour FactureDevis.xaml
     /// </summary>
-    public partial class FactureDevisEditionV2 : Page
+    public partial class FactureDevis : Page
     {
-        public FactureDevisEditionV2()
+        public FactureDevis()
         {
             InitializeComponent();
         }

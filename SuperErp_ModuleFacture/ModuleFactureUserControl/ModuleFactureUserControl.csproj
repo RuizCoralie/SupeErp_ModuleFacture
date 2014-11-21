@@ -62,11 +62,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="View\AjoutModifLigneCommande.xaml.cs">
+      <DependentUpon>AjoutModifLigneCommande.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FactureDevisEdition.xaml.cs">
       <DependentUpon>FactureDevisEdition.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\FactureDevisEditionV2.xaml.cs">
-      <DependentUpon>FactureDevisEditionV2.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListeFactureDevis.xaml.cs">
       <DependentUpon>ListeFactureDevis.xaml</DependentUpon>
@@ -82,11 +82,11 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\FactureDevisEdition.xaml">
+    <Page Include="View\AjoutModifLigneCommande.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\FactureDevisEditionV2.xaml">
+    <Page Include="View\FactureDevisEdition.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

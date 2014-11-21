@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="ModuleFactureUserControl.View.FactureDevis"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" Width="600"
+            DataContext="VueAjoutModif">
+    
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="AccentBrush" Color="#4388CC" />
+        <Style x:Key="textBlock_BaseScriptsCount" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,5,0,0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontStyle" Value="Italic" />
+        </Style>
+        <Style x:Key="textBlockStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0,0,2" />
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="Segoe UI Light" />
+            <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
+        </Style>
+    </UserControl.Resources>
+        
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Height="Auto">
+             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                <TextBlock FontSize="14" FontWeight="Bold" Name="Tb_AjoutModifLigne" Text="Ajouts Lignes"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Height="Auto">
+            <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True">
+                <DataGrid.Columns>
+                   <DataGridComboBoxColumn Header="Produit"/>
+                    <DataGridTextColumn Header="Désignation" />
+                    <DataGridComboBoxColumn Header="Quatité" />
+                    <DataGridTextColumn Header="Montant HT" />
+                    <DataGridTextColumn Header="Montant TTC" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Total HT : " Style="{StaticResource textBlockStyle}"/>
+                    <TextBlock Text="" Style="{StaticResource textBlockStyle}"/>
+                    <TextBlock Text="Total TTC : " Style="{StaticResource textBlockStyle}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Dont TVA : " Style="{StaticResource textBlock_BaseScriptsCount}"/>
+                    <TextBlock Text="" Style="{StaticResource textBlock_BaseScriptsCount}"/>
+                    <TextBlock Text="%" Style="{StaticResource textBlock_BaseScriptsCount}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="3">
+            <StackPanel  HorizontalAlignment="Right" Orientation="Vertical">
+                <Button Margin="5">Confirmer</Button>
+                <Button Margin="5">Annuler</Button>
+
+            </StackPanel>
+                
+        </Grid>
+        
+
+
+    </Grid>
+    </UserControl>
