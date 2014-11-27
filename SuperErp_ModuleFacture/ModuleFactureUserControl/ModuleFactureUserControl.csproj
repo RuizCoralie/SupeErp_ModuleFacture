@@ -51,6 +51,16 @@
   <ItemGroup>
     <Compile Include="Helpers\NotificationObject.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="Model\BILL_BillQuotation.cs" />
+    <Compile Include="Model\BILL_BillQuotationStatus.cs" />
+    <Compile Include="Model\BILL_Category.cs" />
+    <Compile Include="Model\BILL_LineBillQuotation.cs" />
+    <Compile Include="Model\BILL_Product.cs" />
+    <Compile Include="Model\BILL_Status.cs" />
+    <Compile Include="Model\BILL_Transmitter.cs" />
+    <Compile Include="Model\BILL_Vat.cs" />
+    <Compile Include="Model\Company.cs" />
+    <Compile Include="Model\Company_Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
