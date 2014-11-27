@@ -19,7 +19,7 @@ namespace ModuleFactureUserControl.Helpers
             return propertyName;
         }
 
-        private void RaisePropertyChanged(string propertyName)
+        public void RaisePropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
