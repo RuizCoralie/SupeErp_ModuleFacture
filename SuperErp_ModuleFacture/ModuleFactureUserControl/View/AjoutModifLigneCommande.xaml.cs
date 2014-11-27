@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using SupErp.Shared;
+using System.Windows.Controls;
 
 namespace ModuleFactureUserControl.View
 {
