@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModuleFactureUserControl.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,64 +7,76 @@ using System.Threading.Tasks;
 
 namespace ModuleFactureUserControl.Model
 {
-    public class Company_Contact
+    public class Company_Contact : NotificationObject
     {
 
-        private long _id;
+        private long _Id;
 
-        public long id
+        public long Id
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _Id; }
+            set { _Id = value; }
         }
 
-        private string _firstname;
+        private string _Firstname;
 
-        public string firstname
+        public string Firstname
         {
-            get { return _firstname; }
-            set { _firstname = value; }
+            get { return _Firstname; }
+            set 
+            { 
+                _Firstname = value;
+                RaisePropertyChanged("Firstname");
+            }
         }
 
 
-        private string _lastname;
+        private string _Lastname;
 
-        public string lastname
+        public string Lastname
         {
-            get { return _lastname; }
-            set { _lastname = value; }
+            get { return _Lastname; }
+            set 
+            { 
+                _Lastname = value;
+                RaisePropertyChanged("Lastname");
+            }
         }
 
-        private int _gender;
+        private int _Gender;
 
-        public int gender
+        public int Gender
         {
-            get { return _gender; }
-            set { _gender = value; }
+            get { return _Gender; }
+            set 
+            { 
+                _Gender = value;
+                RaisePropertyChanged("Gender");
+            }
         }
 
-        private string _email;
+        private string _Email;
 
-        public string email
+        public string Email
         {
-            get { return _email; }
-            set { _email = value; }
+            get { return _Email; }
+            set 
+            { 
+                _Email = value;
+                RaisePropertyChanged("Email");
+            }
         }
 
-        private string _phone;
+        private string _Phone;
 
-        public string phone
+        public string Phone
         {
-            get { return _phone; }
-            set { _phone = value; }
-        }
-
-        private long _company_id;
-
-        public long compani_id
-        {
-            get { return _company_id; }
-            set { _company_id = value; }
+            get { return _Phone; }
+            set 
+            { 
+                _Phone = value;
+                RaisePropertyChanged("Phone");
+            }
         }
 
         private Company _Company;
@@ -71,7 +84,11 @@ namespace ModuleFactureUserControl.Model
         public Company Company
         {
             get { return _Company; }
-            set { _Company = value; }
+            set 
+            { 
+                _Company = value;
+                RaisePropertyChanged("Company");
+            }
         }
         
         

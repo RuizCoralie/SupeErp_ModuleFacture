@@ -38,6 +38,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,14 +57,15 @@
     <Compile Include="Helpers\MainMenuFacture.cs" />
     <Compile Include="Helpers\NotificationObject.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
-    <Compile Include="Model\BILL_BillQuotation.cs" />
-    <Compile Include="Model\BILL_BillQuotationStatus.cs" />
-    <Compile Include="Model\BILL_Category.cs" />
-    <Compile Include="Model\BILL_LineBillQuotation.cs" />
-    <Compile Include="Model\BILL_Product.cs" />
-    <Compile Include="Model\BILL_Status.cs" />
-    <Compile Include="Model\BILL_Transmitter.cs" />
-    <Compile Include="Model\BILL_Vat.cs" />
+    <Compile Include="Mapper\MapperToWpfModel.cs" />
+    <Compile Include="Model\BillQuotation.cs" />
+    <Compile Include="Model\BillQuotationStatus.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\LineBillQuotation.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\Status.cs" />
+    <Compile Include="Model\Transmitter.cs" />
+    <Compile Include="Model\Vat.cs" />
     <Compile Include="Model\Company.cs" />
     <Compile Include="Model\Company_Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -77,6 +80,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Service References\FacturationService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AjoutModifLigneCommandeViewModel.cs" />
     <Compile Include="ViewModel\FactureDevisEditionViewModel.cs" />
@@ -94,11 +102,28 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\FacturationService\FacturationService.wsdl" />
+    <None Include="Service References\FacturationService\FacturationService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FacturationService\FacturationService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FacturationService\FacturationService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FacturationService\FacturationService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BillQuotationLight.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\AjoutModifLigneCommande.xaml">
@@ -113,6 +138,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\FacturationService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FacturationService\FacturationService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FacturationService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FacturationService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FacturationService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,9 +1,18 @@
 ﻿using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.FacturationService;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class ListeFactureDevisViewModel : NotificationObject
     {
+        #region Initialisation
+        public ListeFactureDevisViewModel()
+        {
+            FacturationServiceClient FacturationService = new FacturationServiceClient();
+            
+        }
+        #endregion
+
         #region Methods
         private void PrintCommandHandler()
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModuleFactureUserControl.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,75 +8,100 @@ using System.Threading.Tasks;
 
 namespace ModuleFactureUserControl.Model
 {
-   public class Company
+   public class Company : NotificationObject
     {
 
-        private long _id;
+        private long _Id;
 
-        public long id
+        public long Id
         {
-            get { return _id; }
-            set { _id = value; }
+            get { return _Id; }
+            set { _Id = value; }
         }
 
-        private string _name;
+        private string _Name;
 
-        public string name
+        public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get { return _Name; }
+            set 
+            { 
+                _Name = value;
+                RaisePropertyChanged("Name");
+            }
         }
 
-        private string _siret;
+        private string _Siret;
 
-        public string siret
+        public string Siret
         {
-            get { return _siret; }
-            set { _siret = value; }
+            get { return _Siret; }
+            set 
+            { 
+                _Siret = value;
+                RaisePropertyChanged("Siret");
+            }
         }
 
-        private string _adress;
+        private string _Adress;
 
-        public string adress
+        public string Adress
         {
-            get { return _adress; }
-            set { _adress = value; }
+            get { return _Adress; }
+            set 
+            { 
+                _Adress = value;
+                RaisePropertyChanged("Adress");
+            }
         }
 
 
 
-        private int _postalcode;
+        private int _Postalcode;
 
-        public int postalcode
+        public int Postalcode
         {
-            get { return _postalcode; }
-            set { _postalcode = value; }
+            get { return _Postalcode; }
+            set 
+            { 
+                _Postalcode = value;
+                RaisePropertyChanged("Postalcode");
+            }
         }
 
-        private string _city;
+        private string _City;
 
-        public string city
+        public string City
         {
-            get { return _city; }
-            set { _city = value; }
+            get { return _City; }
+            set 
+            { 
+                _City = value;
+                RaisePropertyChanged("City");
+            }
         }
         
         
-        private ObservableCollection<BILL_BillQuotation> _BILL_BillQuotation;
-        private ObservableCollection<Company_Contact> _Company_Contact;
+        private ObservableCollection<BillQuotation> _BILL_BillQuotation;
+      
 
-        private ObservableCollection<BILL_BillQuotation> BILL_BillQuotation
+        private ObservableCollection<BillQuotation> BILL_BillQuotation
         {
             get
             {
                 if (_BILL_BillQuotation == null)
-                    _BILL_BillQuotation = new ObservableCollection<BILL_BillQuotation>();
+                    _BILL_BillQuotation = new ObservableCollection<BillQuotation>();
                 return _BILL_BillQuotation;
             }
 
-            set { _BILL_BillQuotation = value; }
+            set 
+            { 
+                _BILL_BillQuotation = value;
+                RaisePropertyChanged("BILL_BillQuotation");
+            }
         }
 
+        private ObservableCollection<Company_Contact> _Company_Contact;
         public ObservableCollection<Company_Contact> Company_Contact
         {
             get
@@ -87,6 +113,7 @@ namespace ModuleFactureUserControl.Model
             set
             {
                 _Company_Contact = value;
+                RaisePropertyChanged("Company_Contact");
             }
         }
 

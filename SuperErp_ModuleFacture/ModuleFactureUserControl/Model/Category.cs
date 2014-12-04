@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModuleFactureUserControl.Model;
+using ModuleFactureUserControl.Helpers;
 
 
 namespace ModuleFactureUserControl.Model
 {
-    public class BILL_Category
+    public class Category : NotificationObject
     {
         private long _Category_Id;
 
@@ -24,7 +25,11 @@ namespace ModuleFactureUserControl.Model
         public string Name
         {
             get { return _Name; }
-            set { _Name = value; }
+            set 
+            { 
+                _Name = value;
+                RaisePropertyChanged("Name");
+            }
         }
 
         private string _DescriptionCat;
@@ -32,21 +37,29 @@ namespace ModuleFactureUserControl.Model
         public string DescriptionCat
         {
             get { return _DescriptionCat; }
-            set { _DescriptionCat = value; }
+            set 
+            { 
+                _DescriptionCat = value;
+                RaisePropertyChanged("DescriptionCat");
+            }
         }
 
         
         
-        private ObservableCollection<BILL_Product> _BILL_Product;
-        public  ObservableCollection<BILL_Product> BILL_Product
+        private ObservableCollection<Product> _BILL_Product;
+        public  ObservableCollection<Product> BILL_Product
         {
             get
             {
                 if (_BILL_Product == null)
-                    _BILL_Product = new ObservableCollection<BILL_Product>();
+                    _BILL_Product = new ObservableCollection<Product>();
                 return _BILL_Product;
             }
-            set { _BILL_Product = value; }
+            set 
+            {
+                _BILL_Product = value;
+                RaisePropertyChanged("BILL_Product");
+            }
         }
    
 

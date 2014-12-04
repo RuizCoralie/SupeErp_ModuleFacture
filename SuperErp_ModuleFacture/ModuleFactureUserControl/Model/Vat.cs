@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModuleFactureUserControl.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace ModuleFactureUserControl.Model
 {
-    public class BILL_Vat
+    public class Vat : NotificationObject
     {
         
         private long _Vat_Id;
@@ -23,7 +24,11 @@ namespace ModuleFactureUserControl.Model
         public double Rate
         {
             get { return _Rate; }
-            set { _Rate = value; }
+            set 
+            { 
+                _Rate = value;
+                RaisePropertyChanged("Rate");
+            }
         }
 
 
@@ -32,23 +37,31 @@ namespace ModuleFactureUserControl.Model
         public System.DateTime DateVat
         {
             get { return _DateVat; }
-            set { _DateVat = value; }
+            set 
+            { 
+                _DateVat = value;
+                RaisePropertyChanged("DateVat");
+            }
         }
         
  
 
-        private ObservableCollection<BILL_Product> _BILL_Product;
+        private ObservableCollection<Product> _BILL_Product;
         
-        public ObservableCollection<BILL_Product> BILL_Product
+        public ObservableCollection<Product> BILL_Product
         {
             get
             {
                 if (_BILL_Product == null)
-                    _BILL_Product = new ObservableCollection<BILL_Product>();
+                    _BILL_Product = new ObservableCollection<Product>();
                 return _BILL_Product;
 
             }
-            set{_BILL_Product = value;}
+            set
+            {
+                _BILL_Product = value;
+                RaisePropertyChanged("BILL_Product");
+            }
         }
     }
 }
