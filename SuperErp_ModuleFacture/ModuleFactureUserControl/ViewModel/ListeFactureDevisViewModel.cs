@@ -1,5 +1,10 @@
 ﻿using ModuleFactureUserControl.Helpers;
 using ModuleFactureUserControl.FacturationService;
+using ModuleFactureUserControl.Model;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Collections.Generic;
+using ModuleFactureUserControl.Mapper;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -9,8 +14,43 @@ namespace ModuleFactureUserControl.ViewModel
         public ListeFactureDevisViewModel()
         {
             FacturationServiceClient FacturationService = new FacturationServiceClient();
+            var billsQuotationsService = FacturationService.GetListQuotation();
+            if(billsQuotationsService!=null)
+            {
+                var billsQuotation = new List<BillQuotation>();
+                billsQuotationsService.ToList().ForEach(x =>billsQuotation.Add(x.ToBillQuotation()));
+                BillsQuotations =new ObservableCollection<BillQuotation>(billsQuotation);
+            }
             
         }
+        #endregion
+
+        #region Fields
+
+        private ObservableCollection<BillQuotation> _BillsQuotations;
+
+        public ObservableCollection<BillQuotation> BillsQuotations
+        {
+            get { return _BillsQuotations; }
+            set 
+            { 
+                _BillsQuotations = value;
+                RaisePropertyChanged("BillsQuotations");
+            }
+        }
+
+        private BillQuotation _SelectedBillQuotation;
+
+        public BillQuotation SelectedBillQuotation
+        {
+            get { return _SelectedBillQuotation; }
+            set 
+            { 
+                _SelectedBillQuotation = value;
+                RaisePropertyChanged("SelectedBillQuotation");
+            }
+        }
+        
         #endregion
 
         #region Methods

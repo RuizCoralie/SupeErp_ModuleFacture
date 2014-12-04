@@ -121,7 +121,13 @@
     <None Include="Service References\FacturationService\FacturationService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BillQuotationComplete.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BillQuotationLight.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.LineExtended.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
   </ItemGroup>

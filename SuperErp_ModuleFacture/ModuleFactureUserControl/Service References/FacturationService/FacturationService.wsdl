@@ -20,6 +20,30 @@
   <wsdl:message name="IFacturationService_SearchBillQuotation_OutputMessage">
     <wsdl:part name="parameters" element="tns:SearchBillQuotationResponse" />
   </wsdl:message>
+  <wsdl:message name="IFacturationService_GetBillQuotation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillQuotation" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_GetBillQuotation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBillQuotationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_GetAllLines_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllLines" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_GetAllLines_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllLinesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_CreateBillQuotation_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateBillQuotation" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_CreateBillQuotation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateBillQuotationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_ModifyBillQuotation_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyBillQuotation" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_ModifyBillQuotation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyBillQuotationResponse" />
+  </wsdl:message>
   <wsdl:portType name="IFacturationService">
     <wsdl:operation name="GetListQuotation">
       <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/GetListQuotation" message="tns:IFacturationService_GetListQuotation_InputMessage" />
@@ -28,6 +52,22 @@
     <wsdl:operation name="SearchBillQuotation">
       <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/SearchBillQuotation" message="tns:IFacturationService_SearchBillQuotation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/SearchBillQuotationResponse" message="tns:IFacturationService_SearchBillQuotation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBillQuotation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/GetBillQuotation" message="tns:IFacturationService_GetBillQuotation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/GetBillQuotationResponse" message="tns:IFacturationService_GetBillQuotation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLines">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/GetAllLines" message="tns:IFacturationService_GetAllLines_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/GetAllLinesResponse" message="tns:IFacturationService_GetAllLines_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateBillQuotation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/CreateBillQuotation" message="tns:IFacturationService_CreateBillQuotation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/CreateBillQuotationResponse" message="tns:IFacturationService_CreateBillQuotation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyBillQuotation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/ModifyBillQuotation" message="tns:IFacturationService_ModifyBillQuotation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/ModifyBillQuotationResponse" message="tns:IFacturationService_ModifyBillQuotation_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IFacturationService" type="tns:IFacturationService">
@@ -43,6 +83,42 @@
     </wsdl:operation>
     <wsdl:operation name="SearchBillQuotation">
       <soap:operation soapAction="http://tempuri.org/IFacturationService/SearchBillQuotation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBillQuotation">
+      <soap:operation soapAction="http://tempuri.org/IFacturationService/GetBillQuotation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLines">
+      <soap:operation soapAction="http://tempuri.org/IFacturationService/GetAllLines" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateBillQuotation">
+      <soap:operation soapAction="http://tempuri.org/IFacturationService/CreateBillQuotation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyBillQuotation">
+      <soap:operation soapAction="http://tempuri.org/IFacturationService/ModifyBillQuotation" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

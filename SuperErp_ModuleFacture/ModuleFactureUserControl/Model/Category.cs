@@ -43,26 +43,6 @@ namespace ModuleFactureUserControl.Model
                 RaisePropertyChanged("DescriptionCat");
             }
         }
-
-        
-        
-        private ObservableCollection<Product> _BILL_Product;
-        public  ObservableCollection<Product> BILL_Product
-        {
-            get
-            {
-                if (_BILL_Product == null)
-                    _BILL_Product = new ObservableCollection<Product>();
-                return _BILL_Product;
-            }
-            set 
-            {
-                _BILL_Product = value;
-                RaisePropertyChanged("BILL_Product");
-            }
-        }
-   
-
     }
     
 

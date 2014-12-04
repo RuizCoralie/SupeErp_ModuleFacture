@@ -41,9 +41,9 @@ namespace ModuleFactureUserControl.Model
             }
         }
 
-        private int _PostCode;
+        private int? _PostCode;
 
-        public int PostCode
+        public int? PostCode
         {
             get { return _PostCode; }
             set 

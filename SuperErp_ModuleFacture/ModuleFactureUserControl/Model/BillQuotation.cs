@@ -44,9 +44,9 @@ namespace ModuleFactureUserControl.Model
             }
         }
 
-        private int _AmountDF;
+        private double _AmountDF;
 
-        public int AmountDF
+        public double AmountDF
         {
             get { return _AmountDF; }
             set 

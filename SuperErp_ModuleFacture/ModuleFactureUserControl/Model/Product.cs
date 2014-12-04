@@ -80,21 +80,21 @@ namespace ModuleFactureUserControl.Model
         }
         
 
-        private ObservableCollection<LineBillQuotation> _BILL_LineBillQuotation;
-        public ObservableCollection<LineBillQuotation> BILL_LineBillQuotation
-        {
-            get
-            {
-                if (_BILL_LineBillQuotation==null)
-                    _BILL_LineBillQuotation= new ObservableCollection<LineBillQuotation>();
-                return _BILL_LineBillQuotation;
-            }
-            set 
-            { 
-                _BILL_LineBillQuotation = value;
-                RaisePropertyChanged("BILL_LineBillQuotation");
-            }
-        }
+        //private ObservableCollection<LineBillQuotation> _BILL_LineBillQuotation;
+        //public ObservableCollection<LineBillQuotation> BILL_LineBillQuotation
+        //{
+        //    get
+        //    {
+        //        if (_BILL_LineBillQuotation==null)
+        //            _BILL_LineBillQuotation= new ObservableCollection<LineBillQuotation>();
+        //        return _BILL_LineBillQuotation;
+        //    }
+        //    set 
+        //    { 
+        //        _BILL_LineBillQuotation = value;
+        //        RaisePropertyChanged("BILL_LineBillQuotation");
+        //    }
+        //}
 
 
 

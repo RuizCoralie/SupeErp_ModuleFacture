@@ -17,6 +17,7 @@ namespace ModuleFactureUserControl.FacturationService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BillQuotationLight", Namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele", IsReference=true)]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ModuleFactureUserControl.FacturationService.BillQuotationComplete))]
     public partial class BillQuotationLight : ModuleFactureUserControl.FacturationService.BILL_BillQuotation {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -41,6 +42,7 @@ namespace ModuleFactureUserControl.FacturationService {
     [System.Runtime.Serialization.DataContractAttribute(Name="BILL_BillQuotation", Namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities", IsReference=true)]
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(ModuleFactureUserControl.FacturationService.BillQuotationLight))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ModuleFactureUserControl.FacturationService.BillQuotationComplete))]
     public partial class BILL_BillQuotation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -606,6 +608,45 @@ namespace ModuleFactureUserControl.FacturationService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BillQuotationComplete", Namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class BillQuotationComplete : ModuleFactureUserControl.FacturationService.BillQuotationLight {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_LineBillQuotation[] linesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_Status[] statusPossibleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_LineBillQuotation[] lines {
+            get {
+                return this.linesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.linesField, value) != true)) {
+                    this.linesField = value;
+                    this.RaisePropertyChanged("lines");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_Status[] statusPossible {
+            get {
+                return this.statusPossibleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusPossibleField, value) != true)) {
+                    this.statusPossibleField = value;
+                    this.RaisePropertyChanged("statusPossible");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BILL_BillQuotationStatus", Namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities", IsReference=true)]
     [System.SerializableAttribute()]
     public partial class BILL_BillQuotationStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -733,6 +774,7 @@ namespace ModuleFactureUserControl.FacturationService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BILL_LineBillQuotation", Namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities", IsReference=true)]
     [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(ModuleFactureUserControl.FacturationService.LineExtended))]
     public partial class BILL_LineBillQuotation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -883,6 +925,12 @@ namespace ModuleFactureUserControl.FacturationService {
         private ModuleFactureUserControl.FacturationService.BILL_BillQuotationStatus[] BILL_BillQuotationStatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_StatusChain[] BILL_StatusChainField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_StatusChain[] BILL_StatusChain1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LibelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -912,6 +960,32 @@ namespace ModuleFactureUserControl.FacturationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_StatusChain[] BILL_StatusChain {
+            get {
+                return this.BILL_StatusChainField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BILL_StatusChainField, value) != true)) {
+                    this.BILL_StatusChainField = value;
+                    this.RaisePropertyChanged("BILL_StatusChain");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_StatusChain[] BILL_StatusChain1 {
+            get {
+                return this.BILL_StatusChain1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BILL_StatusChain1Field, value) != true)) {
+                    this.BILL_StatusChain1Field = value;
+                    this.RaisePropertyChanged("BILL_StatusChain1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Libel {
             get {
                 return this.LibelField;
@@ -920,6 +994,115 @@ namespace ModuleFactureUserControl.FacturationService {
                 if ((object.ReferenceEquals(this.LibelField, value) != true)) {
                     this.LibelField = value;
                     this.RaisePropertyChanged("Libel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long Status_Id {
+            get {
+                return this.Status_IdField;
+            }
+            set {
+                if ((this.Status_IdField.Equals(value) != true)) {
+                    this.Status_IdField = value;
+                    this.RaisePropertyChanged("Status_Id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BILL_StatusChain", Namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class BILL_StatusChain : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_Status BILL_StatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private ModuleFactureUserControl.FacturationService.BILL_Status BILL_Status1Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<long> NextStatus_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long StatusChain_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long Status_IdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_Status BILL_Status {
+            get {
+                return this.BILL_StatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BILL_StatusField, value) != true)) {
+                    this.BILL_StatusField = value;
+                    this.RaisePropertyChanged("BILL_Status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public ModuleFactureUserControl.FacturationService.BILL_Status BILL_Status1 {
+            get {
+                return this.BILL_Status1Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BILL_Status1Field, value) != true)) {
+                    this.BILL_Status1Field = value;
+                    this.RaisePropertyChanged("BILL_Status1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<long> NextStatus_Id {
+            get {
+                return this.NextStatus_IdField;
+            }
+            set {
+                if ((this.NextStatus_IdField.Equals(value) != true)) {
+                    this.NextStatus_IdField = value;
+                    this.RaisePropertyChanged("NextStatus_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long StatusChain_Id {
+            get {
+                return this.StatusChain_IdField;
+            }
+            set {
+                if ((this.StatusChain_IdField.Equals(value) != true)) {
+                    this.StatusChain_IdField = value;
+                    this.RaisePropertyChanged("StatusChain_Id");
                 }
             }
         }
@@ -1116,6 +1299,29 @@ namespace ModuleFactureUserControl.FacturationService {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LineExtended", Namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele", IsReference=true)]
+    [System.SerializableAttribute()]
+    public partial class LineExtended : ModuleFactureUserControl.FacturationService.BILL_LineBillQuotation {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IncludedField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Included {
+            get {
+                return this.IncludedField;
+            }
+            set {
+                if ((this.IncludedField.Equals(value) != true)) {
+                    this.IncludedField = value;
+                    this.RaisePropertyChanged("Included");
+                }
             }
         }
     }
@@ -1728,6 +1934,30 @@ namespace ModuleFactureUserControl.FacturationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/SearchBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/SearchBillQuotationResponse")]
         System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/GetBillQuotationResponse")]
+        ModuleFactureUserControl.FacturationService.BillQuotationComplete GetBillQuotation(long billQuotation_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/GetBillQuotationResponse")]
+        System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationComplete> GetBillQuotationAsync(long billQuotation_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetAllLines", ReplyAction="http://tempuri.org/IFacturationService/GetAllLinesResponse")]
+        ModuleFactureUserControl.FacturationService.LineExtended[] GetAllLines(long billQuotation_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetAllLines", ReplyAction="http://tempuri.org/IFacturationService/GetAllLinesResponse")]
+        System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.LineExtended[]> GetAllLinesAsync(long billQuotation_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/CreateBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/CreateBillQuotationResponse")]
+        bool CreateBillQuotation(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/CreateBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/CreateBillQuotationResponse")]
+        System.Threading.Tasks.Task<bool> CreateBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/ModifyBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/ModifyBillQuotationResponse")]
+        bool ModifyBillQuotation(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/ModifyBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/ModifyBillQuotationResponse")]
+        System.Threading.Tasks.Task<bool> ModifyBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1771,6 +2001,38 @@ namespace ModuleFactureUserControl.FacturationService {
         
         public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill) {
             return base.Channel.SearchBillQuotationAsync(nomClient, numFact, dateDocument, status, MontantHTMin, MontantHTMax, MontantTTCMin, MontantTTCMax, isBill);
+        }
+        
+        public ModuleFactureUserControl.FacturationService.BillQuotationComplete GetBillQuotation(long billQuotation_id) {
+            return base.Channel.GetBillQuotation(billQuotation_id);
+        }
+        
+        public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationComplete> GetBillQuotationAsync(long billQuotation_id) {
+            return base.Channel.GetBillQuotationAsync(billQuotation_id);
+        }
+        
+        public ModuleFactureUserControl.FacturationService.LineExtended[] GetAllLines(long billQuotation_id) {
+            return base.Channel.GetAllLines(billQuotation_id);
+        }
+        
+        public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.LineExtended[]> GetAllLinesAsync(long billQuotation_id) {
+            return base.Channel.GetAllLinesAsync(billQuotation_id);
+        }
+        
+        public bool CreateBillQuotation(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation) {
+            return base.Channel.CreateBillQuotation(billQuotation);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CreateBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation) {
+            return base.Channel.CreateBillQuotationAsync(billQuotation);
+        }
+        
+        public bool ModifyBillQuotation(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation) {
+            return base.Channel.ModifyBillQuotation(billQuotation);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ModifyBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation) {
+            return base.Channel.ModifyBillQuotationAsync(billQuotation);
         }
     }
 }

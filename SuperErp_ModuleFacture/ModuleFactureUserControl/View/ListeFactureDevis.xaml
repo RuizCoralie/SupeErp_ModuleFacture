@@ -165,15 +165,16 @@
             </Border>
             
             <!--Lignes facture/devis-->
-            <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True">
+            <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}" 
+                      SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Numéros" />
-                    <DataGridTextColumn Header="Date" />
-                    <DataGridTextColumn Header="Nom du client" />
+                    <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />
+                    <DataGridTextColumn Header="Nom du client" Binding="{Binding Company.Name}"/>
                     <DataGridTextColumn Header="Type" />
                     <DataGridTextColumn Header="Statut" />
-                    <DataGridTextColumn Header="Montant HT" />
-                    <DataGridTextColumn Header="Montant TTC" />
+                    <DataGridTextColumn Header="Montant HT" Binding="{Binding AmountDF}"/>
+                    <DataGridTextColumn Header="Montant TTC" Binding="{Binding AmountTTC}" />
                 </DataGrid.Columns>
             </DataGrid>
 

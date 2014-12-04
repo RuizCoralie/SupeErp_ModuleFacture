@@ -19,9 +19,9 @@ namespace ModuleFactureUserControl.Model
         }
         
 
-        private double _Rate;
+        private double? _Rate;
 
-        public double Rate
+        public double? Rate
         {
             get { return _Rate; }
             set 
@@ -41,26 +41,6 @@ namespace ModuleFactureUserControl.Model
             { 
                 _DateVat = value;
                 RaisePropertyChanged("DateVat");
-            }
-        }
-        
- 
-
-        private ObservableCollection<Product> _BILL_Product;
-        
-        public ObservableCollection<Product> BILL_Product
-        {
-            get
-            {
-                if (_BILL_Product == null)
-                    _BILL_Product = new ObservableCollection<Product>();
-                return _BILL_Product;
-
-            }
-            set
-            {
-                _BILL_Product = value;
-                RaisePropertyChanged("BILL_Product");
             }
         }
     }

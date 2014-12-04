@@ -35,4 +35,60 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetBillQuotation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="billQuotation_id" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBillQuotationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetBillQuotationResult" nillable="true" type="q3:BillQuotationComplete" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllLines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="billQuotation_id" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllLinesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetAllLinesResult" nillable="true" type="q4:ArrayOfLineExtended" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateBillQuotation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q5:BillQuotationComplete" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateBillQuotationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateBillQuotationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModifyBillQuotation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q6:BillQuotationComplete" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModifyBillQuotationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModifyBillQuotationResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -82,41 +82,24 @@ namespace ModuleFactureUserControl.Model
         }
         
         
-        private ObservableCollection<BillQuotation> _BILL_BillQuotation;
+        //private ObservableCollection<BillQuotation> _BILL_BillQuotation;
       
 
-        private ObservableCollection<BillQuotation> BILL_BillQuotation
-        {
-            get
-            {
-                if (_BILL_BillQuotation == null)
-                    _BILL_BillQuotation = new ObservableCollection<BillQuotation>();
-                return _BILL_BillQuotation;
-            }
+        //private ObservableCollection<BillQuotation> BILL_BillQuotation
+        //{
+        //    get
+        //    {
+        //        if (_BILL_BillQuotation == null)
+        //            _BILL_BillQuotation = new ObservableCollection<BillQuotation>();
+        //        return _BILL_BillQuotation;
+        //    }
 
-            set 
-            { 
-                _BILL_BillQuotation = value;
-                RaisePropertyChanged("BILL_BillQuotation");
-            }
+        //    set 
+        //    { 
+        //        _BILL_BillQuotation = value;
+        //        RaisePropertyChanged("BILL_BillQuotation");
+        //    }
         }
-
-        private ObservableCollection<Company_Contact> _Company_Contact;
-        public ObservableCollection<Company_Contact> Company_Contact
-        {
-            get
-            {
-                if (_Company_Contact == null)
-                    _Company_Contact = new ObservableCollection<Company_Contact>();
-                return _Company_Contact;
-            }
-            set
-            {
-                _Company_Contact = value;
-                RaisePropertyChanged("Company_Contact");
-            }
-        }
-
     }
 
 }

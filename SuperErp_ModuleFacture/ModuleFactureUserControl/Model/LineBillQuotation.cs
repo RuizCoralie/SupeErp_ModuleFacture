@@ -17,6 +17,19 @@ namespace ModuleFactureUserControl.Model
             set { _LineBillQuotation_Id = value; }
         }
 
+        private bool _IsInBill;
+
+        public bool IsInBill
+        {
+            get { return _IsInBill; }
+            set 
+            { 
+                _IsInBill = value;
+                RaisePropertyChanged("IsInBill");
+            }
+        }
+        
+
         private System.DateTime _DateLine;
 
         public System.DateTime DateLine

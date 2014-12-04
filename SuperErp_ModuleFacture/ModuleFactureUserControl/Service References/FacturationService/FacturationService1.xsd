@@ -17,4 +17,31 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="BillQuotationLight" nillable="true" type="tns:BillQuotationLight" />
+  <xs:complexType name="BillQuotationComplete">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BillQuotationLight">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="lines" nillable="true" type="q2:ArrayOfBILL_LineBillQuotation" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="statusPossible" nillable="true" type="q3:ArrayOfBILL_Status" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BillQuotationComplete" nillable="true" type="tns:BillQuotationComplete" />
+  <xs:complexType name="ArrayOfLineExtended">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LineExtended" nillable="true" type="tns:LineExtended" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLineExtended" nillable="true" type="tns:ArrayOfLineExtended" />
+  <xs:complexType name="LineExtended">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q4="http://schemas.datacontract.org/2004/07/SupErp.Entities" base="q4:BILL_LineBillQuotation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Included" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LineExtended" nillable="true" type="tns:LineExtended" />
 </xs:schema>
