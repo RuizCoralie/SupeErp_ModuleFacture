@@ -22,8 +22,6 @@
         <xs:element minOccurs="0" name="status" nillable="true" type="xs:long" />
         <xs:element minOccurs="0" name="MontantHTMin" nillable="true" type="xs:int" />
         <xs:element minOccurs="0" name="MontantHTMax" nillable="true" type="xs:int" />
-        <xs:element minOccurs="0" name="MontantTTCMin" nillable="true" type="xs:int" />
-        <xs:element minOccurs="0" name="MontantTTCMax" nillable="true" type="xs:int" />
         <xs:element minOccurs="0" name="isBill" nillable="true" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>

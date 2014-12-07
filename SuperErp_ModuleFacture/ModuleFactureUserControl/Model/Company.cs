@@ -99,7 +99,7 @@ namespace ModuleFactureUserControl.Model
         //        _BILL_BillQuotation = value;
         //        RaisePropertyChanged("BILL_BillQuotation");
         //    }
-        }
+        //}
     }
 
 }

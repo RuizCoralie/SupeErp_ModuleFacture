@@ -5,27 +5,167 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Generic;
 using ModuleFactureUserControl.Mapper;
+using System.Threading.Tasks;
+using System;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class ListeFactureDevisViewModel : NotificationObject
     {
+        #region Properties         
+        private FacturationServiceClient FacturationService;
+        #endregion
+
         #region Initialisation
         public ListeFactureDevisViewModel()
         {
-            FacturationServiceClient FacturationService = new FacturationServiceClient();
-            var billsQuotationsService = FacturationService.GetListQuotation();
-            if(billsQuotationsService!=null)
+            FacturationService = new FacturationServiceClient();
+            Task.Factory.StartNew(() =>
             {
-                var billsQuotation = new List<BillQuotation>();
-                billsQuotationsService.ToList().ForEach(x =>billsQuotation.Add(x.ToBillQuotation()));
-                BillsQuotations =new ObservableCollection<BillQuotation>(billsQuotation);
-            }
+                InitListFiltre();
+                try
+                {
+                    var billsQuotationsService = FacturationService.GetListQuotation();
+                    if(billsQuotationsService!=null)
+                    {
+                        var billsQuotation = new List<BillQuotation>();
+                        billsQuotationsService.ToList().ForEach(x =>billsQuotation.Add(x.ToBillQuotation()));
+                        BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                    throw;
+                }
+            });
             
         }
         #endregion
 
         #region Fields
+        #region Filters
+        private string _NomClient;
+
+        public string NomClient
+        {
+            get { return _NomClient; }
+            set 
+            { 
+                _NomClient = value;
+                RaisePropertyChanged("NomClient");
+            }
+        }
+        private DateTime _DateFacturation;
+
+        public DateTime DateFacturation
+        {
+            get { return _DateFacturation; }
+            set 
+            { 
+                _DateFacturation = value;
+                RaisePropertyChanged("DateFacturation");
+            }
+        }
+
+        private string _NumFacture;
+
+        public string NumFacture
+        {
+            get { return _NumFacture; }
+            set 
+            { 
+                _NumFacture = value;
+                RaisePropertyChanged("NumFacture");
+            }
+        }
+
+        private BillQuotationType _Type;
+
+        public BillQuotationType Type
+        {
+            get { return _Type; }
+            set 
+            { 
+                _Type = value;
+                RaisePropertyChanged("Type");
+            }
+        }
+
+        private BillQuotationStatutEnum _Statut;
+
+        public BillQuotationStatutEnum Statut
+        {
+            get { return _Statut; }
+            set 
+            { 
+                _Statut = value;
+                RaisePropertyChanged("Statut");
+            }
+        }
+        
+
+        private double _MontantMin;
+
+        public double MontantMin
+        {
+            get { return _MontantMin; }
+            set 
+            { 
+                _MontantMin = value;
+                RaisePropertyChanged("MontantMin");
+            }
+        }
+
+        private double _MontantMax;
+
+        public double MontantMax
+        {
+            get { return _MontantMax; }
+            set 
+            { 
+                _MontantMax = value;
+                RaisePropertyChanged("MontantMax");
+            }
+        }
+
+        private ObservableCollection<BillQuotationType> _AllType;
+
+        public ObservableCollection<BillQuotationType> AllType
+        {
+            get 
+            {
+                if (_AllType == null)
+                    _AllType = new ObservableCollection<BillQuotationType>();
+                return _AllType; 
+            }
+            set 
+            { 
+                _AllType = value;
+                RaisePropertyChanged("AllType");
+            }
+        }
+
+        private ObservableCollection<BillQuotationStatutEnum> _AllStatut;
+
+        public ObservableCollection<BillQuotationStatutEnum> AllStatut
+        {
+            get 
+            {
+                if (_AllStatut == null)
+                    _AllStatut = new ObservableCollection<BillQuotationStatutEnum>();
+                return _AllStatut; 
+            }
+            set 
+            { 
+                _AllStatut = value;
+                RaisePropertyChanged("AllStatut");
+            }
+        }
+        
+        
+        #endregion
+
 
         private ObservableCollection<BillQuotation> _BillsQuotations;
 
@@ -54,6 +194,21 @@ namespace ModuleFactureUserControl.ViewModel
         #endregion
 
         #region Methods
+
+        private void InitListFiltre()
+        {
+            AllType.Add(BillQuotationType.Facture);
+            AllType.Add(BillQuotationType.Devis);
+
+            AllStatut.Add(BillQuotationStatutEnum.Accepte);
+            AllStatut.Add(BillQuotationStatutEnum.Annule);
+            AllStatut.Add(BillQuotationStatutEnum.Emis);
+            AllStatut.Add(BillQuotationStatutEnum.EnCoursDePaiement);
+            AllStatut.Add(BillQuotationStatutEnum.EnCoursDeRedaction);
+            AllStatut.Add(BillQuotationStatutEnum.Payee);
+            AllStatut.Add(BillQuotationStatutEnum.Refuse);
+        }
+
         private void PrintCommandHandler()
         {
         }
@@ -70,11 +225,29 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void FilterCommandHandler()
         {
-            
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    //var billsQuotationsService = FacturationService.GetBillQuotation();
+                    //if (billsQuotationsService != null)
+                    //{
+                    //    var billsQuotation = new List<BillQuotation>();
+                    //    billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
+                    //    BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
+                    //}
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            });
         }
 
         private void CreateBillCommandHandler()
         {
+            
         }
 
         private void UpdateBillCommandHandler()

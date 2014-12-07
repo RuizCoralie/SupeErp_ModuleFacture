@@ -25,6 +25,7 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotation.DateBillQuotation = billQuotationService.DateBillQuotation;
                 billQuotation.NBill = billQuotationService.NBill;
                 billQuotation.Vat = billQuotationService.Vat;
+                billQuotation.Type = string.IsNullOrEmpty(billQuotationService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
             }
             catch(Exception ex)
             {
@@ -48,6 +49,7 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotation.NBill = billQuotationCompleteService.NBill;
                 billQuotation.Vat = billQuotationCompleteService.Vat;
                 billQuotation.AmountTTC = billQuotationCompleteService.AmountTTC;
+                billQuotation.Type = string.IsNullOrEmpty(billQuotationCompleteService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
             }
             catch (Exception ex)
             {
@@ -71,6 +73,7 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotation.NBill = billQuotationLightService.NBill;
                 billQuotation.Vat = billQuotationLightService.Vat;
                 billQuotation.AmountTTC = billQuotationLightService.AmountTTC;
+                billQuotation.Type = string.IsNullOrEmpty(billQuotationLightService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
             }
             catch (Exception ex)
             {

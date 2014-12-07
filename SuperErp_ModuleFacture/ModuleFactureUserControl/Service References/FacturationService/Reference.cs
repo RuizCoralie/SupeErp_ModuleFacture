@@ -1930,10 +1930,10 @@ namespace ModuleFactureUserControl.FacturationService {
         System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> GetListQuotationAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/SearchBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/SearchBillQuotationResponse")]
-        ModuleFactureUserControl.FacturationService.BillQuotationLight[] SearchBillQuotation(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill);
+        ModuleFactureUserControl.FacturationService.BillQuotationLight[] SearchBillQuotation(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<bool> isBill);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/SearchBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/SearchBillQuotationResponse")]
-        System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill);
+        System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<bool> isBill);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/GetBillQuotationResponse")]
         ModuleFactureUserControl.FacturationService.BillQuotationComplete GetBillQuotation(long billQuotation_id);
@@ -1995,12 +1995,12 @@ namespace ModuleFactureUserControl.FacturationService {
             return base.Channel.GetListQuotationAsync();
         }
         
-        public ModuleFactureUserControl.FacturationService.BillQuotationLight[] SearchBillQuotation(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill) {
-            return base.Channel.SearchBillQuotation(nomClient, numFact, dateDocument, status, MontantHTMin, MontantHTMax, MontantTTCMin, MontantTTCMax, isBill);
+        public ModuleFactureUserControl.FacturationService.BillQuotationLight[] SearchBillQuotation(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<bool> isBill) {
+            return base.Channel.SearchBillQuotation(nomClient, numFact, dateDocument, status, MontantHTMin, MontantHTMax, isBill);
         }
         
-        public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<int> MontantTTCMin, System.Nullable<int> MontantTTCMax, System.Nullable<bool> isBill) {
-            return base.Channel.SearchBillQuotationAsync(nomClient, numFact, dateDocument, status, MontantHTMin, MontantHTMax, MontantTTCMin, MontantTTCMax, isBill);
+        public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BillQuotationLight[]> SearchBillQuotationAsync(string nomClient, string numFact, System.Nullable<System.DateTime> dateDocument, System.Nullable<long> status, System.Nullable<int> MontantHTMin, System.Nullable<int> MontantHTMax, System.Nullable<bool> isBill) {
+            return base.Channel.SearchBillQuotationAsync(nomClient, numFact, dateDocument, status, MontantHTMin, MontantHTMax, isBill);
         }
         
         public ModuleFactureUserControl.FacturationService.BillQuotationComplete GetBillQuotation(long billQuotation_id) {

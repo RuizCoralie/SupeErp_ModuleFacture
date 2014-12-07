@@ -31,7 +31,17 @@ namespace ModuleFactureUserControl.Model
                 RaisePropertyChanged("NBill");
             }
         }
+        private BillQuotationType _Type;
 
+        public BillQuotationType Type
+        {
+            get { return _Type; }
+            set
+            {
+                _Type = value;
+                RaisePropertyChanged("Type");
+            }
+        }
         private bool _Vat;
 
         public bool Vat
@@ -141,7 +151,25 @@ namespace ModuleFactureUserControl.Model
         
 
    }
+
+    public enum BillQuotationType
+    {
+        Facture,
+        Devis
+    }
+
+    public enum BillQuotationStatutEnum
+    {
+        EnCoursDeRedaction,
+        Annule, 
+        Emis,
+        Accepte,
+        Refuse,
+        EnCoursDePaiement,
+        Payee
+    }
 }
+
 
         
 
