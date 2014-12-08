@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using ModuleFactureUserControl.Mapper;
 using System.Threading.Tasks;
 using System;
+using ModuleFactureUserControl.Windows;
+using ModuleFactureUserControl.View;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -34,8 +36,7 @@ namespace ModuleFactureUserControl.ViewModel
                     }
                 }
                 catch (Exception)
-                {
-                    
+                {                   
                     throw;
                 }
             });
@@ -247,7 +248,9 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void CreateBillCommandHandler()
         {
-            
+            var uc = new FactureDevisEdition();
+            var wnd = new WindowsSimple(uc);
+            wnd.Show();
         }
 
         private void UpdateBillCommandHandler()

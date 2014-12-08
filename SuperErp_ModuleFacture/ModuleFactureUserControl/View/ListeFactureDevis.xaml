@@ -176,7 +176,7 @@
             
             <!--Lignes facture/devis-->
             <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}" 
-                      SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}">
+                      SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
                     <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />

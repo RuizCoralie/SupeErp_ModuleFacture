@@ -1,22 +1,25 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ModuleFactureUserControl.View;
 
-namespace WpfModuleFactureTest
+namespace ModuleFactureUserControl.Windows
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WindowsSimple.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WindowsSimple : Window
     {
-        public MainWindow()
+        public WindowsSimple()
         {
             InitializeComponent();
-            var uc = new ListeFactureDevis();
-
-            InitGrid();
-            grid_UC.Children.Add(uc);
         }
+
+        public WindowsSimple(UIElement Uc)
+        {
+            InitializeComponent();
+            InitGrid();
+            grid_UC.Children.Add(Uc);
+        }
+
 
         private void InitGrid()
         {
@@ -26,5 +29,6 @@ namespace WpfModuleFactureTest
             if (grid_UC.Children != null)
                 grid_UC.Children.Clear();
         }
+
     }
 }

@@ -1,14 +1,161 @@
-﻿using ModuleFactureUserControl.Helpers;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using ModuleFactureUserControl.FacturationService;
+using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.Model;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class FactureDevisEditionViewModel : NotificationObject
     {
-        #region Methods
-        private void RemoveLineCommandHandler()
+        #region Properties
+        private FacturationServiceClient FacturationService;
+
+
+        #endregion
+
+        #region Initialisation
+        public FactureDevisEditionViewModel()
         {
-           
+            FacturationService = new FacturationServiceClient();
+            IsNewBillQuotation = true;
         }
+
+        public FactureDevisEditionViewModel(BillQuotation billQuotation)
+        {
+            FacturationService = new FacturationServiceClient();
+            IsNewBillQuotation = false;
+        }
+
+        #endregion
+        #region Fields
+        private bool _IsNewBillQuotation;
+        private bool IsNewBillQuotation
+        {
+            get
+            {
+                return _IsNewBillQuotation;
+            }
+            set
+            {
+                _IsNewBillQuotation = value;
+                RaisePropertyChanged("IsNewBillQuotation");
+            }
+        }
+        private BillQuotation _BillQuotation;
+
+        public BillQuotation BillQuotation
+        {
+            get { return _BillQuotation; }
+            set
+            {
+                _BillQuotation = value;
+                RaisePropertyChanged("BillQuotation");
+            }
+        }
+
+        private Transmitter _SelectedTransmitter;
+
+        public Transmitter SelectedTransmistter
+        {
+            get { return _SelectedTransmitter; }
+            set
+            {
+                _SelectedTransmitter = value;
+                RaisePropertyChanged("SelectedTransmistter");
+            }
+        }
+        private ObservableCollection<Transmitter> _AllTransmitter;
+
+        public ObservableCollection<Transmitter> AllTransmitter
+        {
+            get { return _AllTransmitter; }
+            set
+            {
+                _AllTransmitter = value;
+                RaisePropertyChanged("AllTransmitter");
+            }
+        }
+        private ModuleFactureUserControl.Model.Company _SelectedCompany;
+
+        public ModuleFactureUserControl.Model.Company SelectedCompany
+        {
+            get { return _SelectedCompany; }
+            set
+            {
+                _SelectedCompany = value;
+                RaisePropertyChanged("SelectedCompany");
+            }
+        }
+
+        private ObservableCollection<ModuleFactureUserControl.Model.Company> _AllCompany;
+
+        public ObservableCollection<ModuleFactureUserControl.Model.Company> AllCompany
+        {
+            get { return _AllCompany; }
+            set
+            {
+                _AllCompany = value;
+                RaisePropertyChanged("AllCompany");
+            }
+        }
+        private ObservableCollection<BillQuotationType> _AllType;
+
+        public ObservableCollection<BillQuotationType> AllType
+        {
+            get
+            {
+                if (_AllType == null)
+                    _AllType = new ObservableCollection<BillQuotationType>();
+                return _AllType;
+            }
+            set
+            {
+                _AllType = value;
+                RaisePropertyChanged("AllType");
+            }
+        }
+        private ObservableCollection<BillQuotationStatutEnum> _AllStatut;
+
+        public ObservableCollection<BillQuotationStatutEnum> AllStatut
+        {
+            get
+            {
+                if (_AllStatut == null)
+                    _AllStatut = new ObservableCollection<BillQuotationStatutEnum>();
+                return _AllStatut;
+            }
+            set
+            {
+                _AllStatut = value;
+                RaisePropertyChanged("AllStatut");
+            }
+        }
+        #endregion
+        #region Methods
+
+        private void InitListFiltre()
+        {
+            AllType.Add(BillQuotationType.Facture);
+            AllType.Add(BillQuotationType.Devis);
+
+            AllStatut.Add(BillQuotationStatutEnum.Accepte);
+            AllStatut.Add(BillQuotationStatutEnum.Annule);
+            AllStatut.Add(BillQuotationStatutEnum.Emis);
+            AllStatut.Add(BillQuotationStatutEnum.EnCoursDePaiement);
+            AllStatut.Add(BillQuotationStatutEnum.EnCoursDeRedaction);
+            AllStatut.Add(BillQuotationStatutEnum.Payee);
+            AllStatut.Add(BillQuotationStatutEnum.Refuse);
+        }
+        //private void RemoveLineCommandHandler(long idLine)
+        //{
+        //    DialogResult result = MessageBox.Show("Voulez-vous vraiment supprimer cette ligne ?", "Suppression", MessageBoxButtons.YesNo);
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        //TODO : Method pour sup line
+        //        //FacturationService.RemoveLine(idLine);
+        //    }
+        //}
         private void PrintCommandHandler()
         {
         }
@@ -28,10 +175,6 @@ namespace ModuleFactureUserControl.ViewModel
 
         }
 
-        private void AddLineCommandHandler()
-        {
-        }
-
         private void UpdateLineCommandHandler()
         {
 
@@ -39,18 +182,18 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void SaveBillCommandHandler()
         {
-            
+
         }
         private void CancelCommandHandler()
         {
-            
+
         }
         #endregion
 
         #region Commands
         private RelayCommand _FilterCommand;
 
-        public RelayCommand FilterCommand
+        public ICommand FilterCommand
         {
             get
             {
@@ -58,16 +201,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _FilterCommand = new RelayCommand((x) => FilterCommandHandler());
                 return _FilterCommand;
             }
-            set
-            {
-                _FilterCommand = value;
-                RaisePropertyChanged("FilterCommand");
-            }
         }
 
         private RelayCommand _PrintCommand;
 
-        public RelayCommand PrintCommand
+        public ICommand PrintCommand
         {
             get
             {
@@ -75,18 +213,13 @@ namespace ModuleFactureUserControl.ViewModel
                     _PrintCommand = new RelayCommand((x) => PrintCommandHandler());
                 return _PrintCommand;
             }
-            set
-            {
-                _PrintCommand = value;
-                RaisePropertyChanged("PrintCommand");
-            }
         }
 
 
 
         private RelayCommand _ExportPdfCommand;
 
-        public RelayCommand ExportPdfCommand
+        public ICommand ExportPdfCommand
         {
             get
             {
@@ -94,17 +227,12 @@ namespace ModuleFactureUserControl.ViewModel
                     _ExportPdfCommand = new RelayCommand((x) => ExportPdfCommandHandler());
                 return _ExportPdfCommand;
             }
-            set
-            {
-                _ExportPdfCommand = value;
-                RaisePropertyChanged("ExportPdfCommand");
-            }
         }
 
 
         private RelayCommand _ExportXlsCommand;
 
-        public RelayCommand ExportXlsCommand
+        public ICommand ExportXlsCommand
         {
             get
             {
@@ -112,33 +240,13 @@ namespace ModuleFactureUserControl.ViewModel
                     _ExportXlsCommand = new RelayCommand((x) => ExportXlsCommandHandler());
                 return _ExportXlsCommand;
             }
-            set
-            {
-                _ExportXlsCommand = value;
-                RaisePropertyChanged("ExportXlsCommand");
-            }
         }
 
-        private RelayCommand _AddLineCommand;
 
-        public RelayCommand AddLineCommand
-        {
-            get
-            {
-                if (_AddLineCommand == null)
-                    _AddLineCommand = new RelayCommand((x) => AddLineCommandHandler());
-                return _AddLineCommand;
-            }
-            set
-            {
-                _AddLineCommand = value;
-                RaisePropertyChanged("AddLineCommand");
-            }
-        }
 
         private RelayCommand _UpdateLineCommand;
 
-        public RelayCommand UpdateLineCommand
+        public ICommand UpdateLineCommand
         {
             get
             {
@@ -146,32 +254,22 @@ namespace ModuleFactureUserControl.ViewModel
                     _UpdateLineCommand = new RelayCommand((x) => UpdateLineCommandHandler());
                 return _UpdateLineCommand;
             }
-            set
-            {
-                _UpdateLineCommand = value;
-                RaisePropertyChanged("UpdateLineCommand");
-            }
         }
-        private RelayCommand _RemoveLineCommand;
+        //private RelayCommand<long> _RemoveLineCommand;
 
-        public RelayCommand RemoveLineCommand
-        {
-            get
-            {
-                if (_RemoveLineCommand == null)
-                    _RemoveLineCommand = new RelayCommand((x) => RemoveLineCommandHandler());
-                return _RemoveLineCommand;
-            }
-            set
-            {
-                _RemoveLineCommand = value;
-                RaisePropertyChanged("RemoveLineCommand");
-            }
-        }
+        //public ICommand RemoveLineCommand
+        //{
+        //    get
+        //    {
+        //        if (_RemoveLineCommand == null)
+        //            _RemoveLineCommand = new RelayCommand<long>((x) => RemoveLineCommandHandler(x));
+        //        return _RemoveLineCommand;
+        //    }
+        //}
 
         private RelayCommand _SaveBillCommand;
 
-        public RelayCommand SaveBillCommand
+        public ICommand SaveBillCommand
         {
             get
             {
@@ -179,16 +277,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _SaveBillCommand = new RelayCommand((x) => SaveBillCommandHandler());
                 return _SaveBillCommand;
             }
-            set
-            {
-                _SaveBillCommand = value;
-                RaisePropertyChanged("SaveBillCommand");
-            }
         }
 
         private RelayCommand _CancelCommand;
 
-        public RelayCommand CancelCommand
+        public ICommand CancelCommand
         {
             get
             {
@@ -196,13 +289,8 @@ namespace ModuleFactureUserControl.ViewModel
                     _CancelCommand = new RelayCommand((x) => CancelCommandHandler());
                 return _CancelCommand;
             }
-            set
-            {
-                _CancelCommand = value;
-                RaisePropertyChanged("CancelCommand");
-            }
         }
-        
+
         #endregion
     }
 }
