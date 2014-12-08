@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:viewModels="clr-namespace:ModuleFactureUserControl.ViewModel"
              mc:Ignorable="d" MinHeight="400" MinWidth="600">
     <UserControl.Resources>
@@ -165,18 +166,21 @@
         </Border>
             
         <!--Lignes facture/devis-->
-        <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}" 
-                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False" Grid.ColumnSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
-                <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />
-                <DataGridTextColumn Header="Nom du client" Binding="{Binding Company.Name}"/>
-                <DataGridTextColumn Header="Type" Binding="{Binding Company.Type}"/>
-                <DataGridTextColumn Header="Statut" />
-                <DataGridTextColumn Header="Montant HT" Binding="{Binding AmountDF}"/>
-                <DataGridTextColumn Header="Montant TTC" Binding="{Binding AmountTTC}" />
-            </DataGrid.Columns>
-        </DataGrid> 
+
+        <telerik:RadBusyIndicator Grid.Row="2" Grid.ColumnSpan="2" IsBusy="{Binding IsBusy}" IsIndeterminate="True">
+            <DataGrid Grid.Row="2" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}" 
+                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />
+                    <DataGridTextColumn Header="Nom du client" Binding="{Binding Company.Name}"/>
+                    <DataGridTextColumn Header="Type" Binding="{Binding Company.Type}"/>
+                    <DataGridTextColumn Header="Statut" />
+                    <DataGridTextColumn Header="Montant HT" Binding="{Binding AmountDF}"/>
+                    <DataGridTextColumn Header="Montant TTC" Binding="{Binding AmountTTC}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </telerik:RadBusyIndicator>
     </Grid>
 
 </UserControl>

@@ -1,26 +1,27 @@
-﻿using ModuleFactureUserControl.Helpers;
-using ModuleFactureUserControl.FacturationService;
-using ModuleFactureUserControl.Model;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Collections.Generic;
-using ModuleFactureUserControl.Mapper;
 using System.Threading.Tasks;
-using System;
-using ModuleFactureUserControl.Windows;
+using ModuleFactureUserControl.FacturationService;
+using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.Mapper;
+using ModuleFactureUserControl.Model;
 using ModuleFactureUserControl.View;
+using ModuleFactureUserControl.Windows;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class ListeFactureDevisViewModel : NotificationObject
     {
-        #region Properties         
+        #region Properties
         private FacturationServiceClient FacturationService;
         #endregion
 
         #region Initialisation
         public ListeFactureDevisViewModel()
         {
+            IsBusy = true;
             FacturationService = new FacturationServiceClient();
             Task.Factory.StartNew(() =>
             {
@@ -28,19 +29,22 @@ namespace ModuleFactureUserControl.ViewModel
                 try
                 {
                     var billsQuotationsService = FacturationService.GetListQuotation();
-                    if(billsQuotationsService!=null)
+                    if (billsQuotationsService != null)
                     {
                         var billsQuotation = new List<BillQuotation>();
-                        billsQuotationsService.ToList().ForEach(x =>billsQuotation.Add(x.ToBillQuotation()));
+                        billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
                         BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
                     }
                 }
                 catch (Exception)
-                {                   
+                {
                     //throw;
                 }
+            }).ContinueWith((x) =>
+            {
+                IsBusy = false;
             });
-            
+
         }
         #endregion
 
@@ -51,8 +55,8 @@ namespace ModuleFactureUserControl.ViewModel
         public string NomClient
         {
             get { return _NomClient; }
-            set 
-            { 
+            set
+            {
                 _NomClient = value;
                 RaisePropertyChanged("NomClient");
             }
@@ -62,8 +66,8 @@ namespace ModuleFactureUserControl.ViewModel
         public DateTime DateFacturation
         {
             get { return _DateFacturation; }
-            set 
-            { 
+            set
+            {
                 _DateFacturation = value;
                 RaisePropertyChanged("DateFacturation");
             }
@@ -74,8 +78,8 @@ namespace ModuleFactureUserControl.ViewModel
         public string NumFacture
         {
             get { return _NumFacture; }
-            set 
-            { 
+            set
+            {
                 _NumFacture = value;
                 RaisePropertyChanged("NumFacture");
             }
@@ -86,8 +90,8 @@ namespace ModuleFactureUserControl.ViewModel
         public BillQuotationType Type
         {
             get { return _Type; }
-            set 
-            { 
+            set
+            {
                 _Type = value;
                 RaisePropertyChanged("Type");
             }
@@ -98,21 +102,21 @@ namespace ModuleFactureUserControl.ViewModel
         public BillQuotationStatutEnum Statut
         {
             get { return _Statut; }
-            set 
-            { 
+            set
+            {
                 _Statut = value;
                 RaisePropertyChanged("Statut");
             }
         }
-        
+
 
         private double _MontantMin;
 
         public double MontantMin
         {
             get { return _MontantMin; }
-            set 
-            { 
+            set
+            {
                 _MontantMin = value;
                 RaisePropertyChanged("MontantMin");
             }
@@ -123,8 +127,8 @@ namespace ModuleFactureUserControl.ViewModel
         public double MontantMax
         {
             get { return _MontantMax; }
-            set 
-            { 
+            set
+            {
                 _MontantMax = value;
                 RaisePropertyChanged("MontantMax");
             }
@@ -134,14 +138,14 @@ namespace ModuleFactureUserControl.ViewModel
 
         public ObservableCollection<BillQuotationType> AllType
         {
-            get 
+            get
             {
                 if (_AllType == null)
                     _AllType = new ObservableCollection<BillQuotationType>();
-                return _AllType; 
+                return _AllType;
             }
-            set 
-            { 
+            set
+            {
                 _AllType = value;
                 RaisePropertyChanged("AllType");
             }
@@ -151,21 +155,33 @@ namespace ModuleFactureUserControl.ViewModel
 
         public ObservableCollection<BillQuotationStatutEnum> AllStatut
         {
-            get 
+            get
             {
                 if (_AllStatut == null)
                     _AllStatut = new ObservableCollection<BillQuotationStatutEnum>();
-                return _AllStatut; 
+                return _AllStatut;
             }
-            set 
-            { 
+            set
+            {
                 _AllStatut = value;
                 RaisePropertyChanged("AllStatut");
             }
         }
-        
-        
+
+
         #endregion
+
+        private bool _IsBusy;
+
+        public bool IsBusy
+        {
+            get { return _IsBusy; }
+            set
+            {
+                _IsBusy = value;
+                RaisePropertyChanged("IsBusy");
+            }
+        }
 
 
         private ObservableCollection<BillQuotation> _BillsQuotations;
@@ -173,8 +189,8 @@ namespace ModuleFactureUserControl.ViewModel
         public ObservableCollection<BillQuotation> BillsQuotations
         {
             get { return _BillsQuotations; }
-            set 
-            { 
+            set
+            {
                 _BillsQuotations = value;
                 RaisePropertyChanged("BillsQuotations");
             }
@@ -185,13 +201,13 @@ namespace ModuleFactureUserControl.ViewModel
         public BillQuotation SelectedBillQuotation
         {
             get { return _SelectedBillQuotation; }
-            set 
-            { 
+            set
+            {
                 _SelectedBillQuotation = value;
                 RaisePropertyChanged("SelectedBillQuotation");
             }
         }
-        
+
         #endregion
 
         #region Methods
@@ -216,12 +232,12 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void ExportPdfCommandHandler()
         {
-            
+
         }
 
         private void ExportXlsCommandHandler()
         {
-            
+
         }
 
         private void FilterCommandHandler()
@@ -255,7 +271,7 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void UpdateBillCommandHandler()
         {
-            
+
         }
         #endregion
 
@@ -294,7 +310,7 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        
+
 
         private RelayCommand _ExportPdfCommand;
 
