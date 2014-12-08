@@ -37,7 +37,7 @@ namespace ModuleFactureUserControl.ViewModel
                 }
                 catch (Exception)
                 {                   
-                    throw;
+                    //throw;
                 }
             });
             

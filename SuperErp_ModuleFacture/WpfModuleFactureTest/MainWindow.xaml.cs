@@ -15,16 +15,16 @@ namespace WpfModuleFactureTest
             var uc = new ListeFactureDevis();
 
             InitGrid();
-            grid_UC.Children.Add(uc);
+            grid_Main.Children.Add(uc);
         }
 
         private void InitGrid()
         {
-            if (grid_UC == null)
-                grid_UC = new Grid();
+            if (grid_Main == null)
+                grid_Main = new Grid();
 
-            if (grid_UC.Children != null)
-                grid_UC.Children.Clear();
+            if (grid_Main.Children != null)
+                grid_Main.Children.Clear();
         }
     }
 }

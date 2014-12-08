@@ -1,11 +1,9 @@
 ﻿<Window x:Class="WpfModuleFactureTest.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:ModuleFactureUserControl.View;assembly=ModuleFactureUserControl"
         Title="MainWindow" Height="600" Width="800">
     <Grid Name="grid_Main">
-        <UserControl Name="Uc_Main"/>
-        <Border>
-            <Grid x:Name="grid_UC" />
-        </Border>
+        <view:ListeFactureDevis/>
     </Grid>
 </Window>
