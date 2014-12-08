@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ModuleFactureUserControl.Model;
+﻿using ModuleFactureUserControl.Model;
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace ModuleFactureUserControl.Mapper
 {
     public static class MapperToWpfModel
     {
-
         public static BillQuotation ToBillQuotation(this FacturationService.BILL_BillQuotation billQuotationService)
         {
             var billQuotation = new BillQuotation();
@@ -27,9 +23,8 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotation.Vat = billQuotationService.Vat;
                 billQuotation.Type = string.IsNullOrEmpty(billQuotationService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
             }
             return billQuotation;
         }
@@ -53,7 +48,6 @@ namespace ModuleFactureUserControl.Mapper
             }
             catch (Exception ex)
             {
-
             }
             return billQuotation;
         }
@@ -77,7 +71,6 @@ namespace ModuleFactureUserControl.Mapper
             }
             catch (Exception ex)
             {
-
             }
             return billQuotation;
         }
@@ -92,8 +85,7 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotationStatus.DateAdvancement = billQuotationStatusService.DateAdvancement;
             }
             catch (Exception ex)
-            {                
-                throw;
+            {
             }
             return billQuotationStatus;
         }
@@ -109,8 +101,6 @@ namespace ModuleFactureUserControl.Mapper
             }
             catch (Exception ex)
             {
-                
-                throw;
             }
             return category;
         }
@@ -128,8 +118,7 @@ namespace ModuleFactureUserControl.Mapper
                 company.Siret = companyService.siret;
             }
             catch (Exception ex)
-            {               
-                throw;
+            {
             }
             return company;
         }
@@ -142,8 +131,8 @@ namespace ModuleFactureUserControl.Mapper
                 linesBillQuotation.Add(line.ToLineBillQuotation());
             }
             return linesBillQuotation;
-
         }
+
         public static LineBillQuotation ToLineBillQuotation(this FacturationService.BILL_LineBillQuotation lineBillQuotationService)
         {
             var lineBillQuotation = new LineBillQuotation();
@@ -155,12 +144,11 @@ namespace ModuleFactureUserControl.Mapper
                 lineBillQuotation.Quantite = lineBillQuotationService.Quantite;
             }
             catch (Exception ex)
-            {               
-                throw;
+            {
             }
             return lineBillQuotation;
-
         }
+
         public static LineBillQuotation ToLineBillQuotation(this FacturationService.LineExtended lineBillQuotationExtendedService)
         {
             var lineBillQuotation = new LineBillQuotation();
@@ -174,8 +162,6 @@ namespace ModuleFactureUserControl.Mapper
             }
             catch (Exception ex)
             {
-                
-                throw;
             }
             return lineBillQuotation;
         }
@@ -193,8 +179,7 @@ namespace ModuleFactureUserControl.Mapper
                 product.Product_Id = productService.Product_Id;
             }
             catch (Exception ex)
-            {                
-                throw;
+            {
             }
             return product;
         }
@@ -208,11 +193,11 @@ namespace ModuleFactureUserControl.Mapper
                 status.Status_Id = statusService.Status_Id;
             }
             catch (Exception ex)
-            {              
-                throw;
+            {
             }
             return status;
         }
+
         public static Transmitter ToTransmitter(this FacturationService.BILL_Transmitter transmitterService)
         {
             var transmitter = new Transmitter();
@@ -228,8 +213,7 @@ namespace ModuleFactureUserControl.Mapper
                 transmitter.Transmitter_Id = transmitterService.Transmitter_Id;
             }
             catch (Exception ex)
-            {             
-                throw;
+            {
             }
             return transmitter;
         }
@@ -244,8 +228,7 @@ namespace ModuleFactureUserControl.Mapper
                 vat.Vat_Id = vatService.Vat_Id;
             }
             catch (Exception ex)
-            {               
-                throw;
+            {
             }
             return vat;
         }

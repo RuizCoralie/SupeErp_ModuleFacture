@@ -1,20 +1,32 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
-using ModuleFactureUserControl.FacturationService;
+﻿using ModuleFactureUserControl.FacturationService;
 using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.Mapper;
 using ModuleFactureUserControl.Model;
+using ModuleFactureUserControl.View;
+using ModuleFactureUserControl.Windows;
+using System;
+using System.Collections.ObjectModel;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class FactureDevisEditionViewModel : NotificationObject
     {
+        #region Events
+
+        public event Action CloseWindow;
+
+        #endregion Events
+
         #region Properties
+
         private FacturationServiceClient FacturationService;
 
-
-        #endregion
+        #endregion Properties
 
         #region Initialisation
+
         public FactureDevisEditionViewModel()
         {
             FacturationService = new FacturationServiceClient();
@@ -25,11 +37,17 @@ namespace ModuleFactureUserControl.ViewModel
         {
             FacturationService = new FacturationServiceClient();
             IsNewBillQuotation = false;
+            BillQuotation = billQuotation;
+            TotalHT = BillQuotation.AmountDF;
+            TotalTTC = BillQuotation.AmountTTC;
         }
 
-        #endregion
+        #endregion Initialisation
+
         #region Fields
+
         private bool _IsNewBillQuotation;
+
         private bool IsNewBillQuotation
         {
             get
@@ -42,11 +60,43 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("IsNewBillQuotation");
             }
         }
+
+        private double _TotalHT;
+
+        public double TotalHT
+        {
+            get { return _TotalHT; }
+            set
+            {
+                _TotalHT = value;
+                BillQuotation.AmountDF = _TotalHT;
+                RaisePropertyChanged("TotalHT");
+            }
+        }
+
+        private double _TotalTTC;
+
+        public double TotalTTC
+        {
+            get { return _TotalTTC; }
+            set
+            {
+                _TotalTTC = value;
+                BillQuotation.AmountTTC = _TotalTTC;
+                RaisePropertyChanged("TotalTTC");
+            }
+        }
+
         private BillQuotation _BillQuotation;
 
         public BillQuotation BillQuotation
         {
-            get { return _BillQuotation; }
+            get
+            {
+                if (_BillQuotation == null)
+                    _BillQuotation = new BillQuotation();
+                return _BillQuotation;
+            }
             set
             {
                 _BillQuotation = value;
@@ -65,6 +115,7 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("SelectedTransmistter");
             }
         }
+
         private ObservableCollection<Transmitter> _AllTransmitter;
 
         public ObservableCollection<Transmitter> AllTransmitter
@@ -76,6 +127,7 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("AllTransmitter");
             }
         }
+
         private ModuleFactureUserControl.Model.Company _SelectedCompany;
 
         public ModuleFactureUserControl.Model.Company SelectedCompany
@@ -99,6 +151,7 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("AllCompany");
             }
         }
+
         private ObservableCollection<BillQuotationType> _AllType;
 
         public ObservableCollection<BillQuotationType> AllType
@@ -115,6 +168,7 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("AllType");
             }
         }
+
         private ObservableCollection<BillQuotationStatutEnum> _AllStatut;
 
         public ObservableCollection<BillQuotationStatutEnum> AllStatut
@@ -131,7 +185,9 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("AllStatut");
             }
         }
-        #endregion
+
+        #endregion Fields
+
         #region Methods
 
         private void InitListFiltre()
@@ -147,6 +203,7 @@ namespace ModuleFactureUserControl.ViewModel
             AllStatut.Add(BillQuotationStatutEnum.Payee);
             AllStatut.Add(BillQuotationStatutEnum.Refuse);
         }
+
         //private void RemoveLineCommandHandler(long idLine)
         //{
         //    DialogResult result = MessageBox.Show("Voulez-vous vraiment supprimer cette ligne ?", "Suppression", MessageBoxButtons.YesNo);
@@ -162,35 +219,85 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void ExportPdfCommandHandler()
         {
-
         }
 
         private void ExportXlsCommandHandler()
         {
-
         }
 
         private void FilterCommandHandler()
         {
-
         }
 
         private void UpdateLineCommandHandler()
         {
+            try
+            {
+                var lineQuotationExtended = FacturationService.GetAllLines(BillQuotation.BillQuotation_Id);
+                var lineQuotation = lineQuotationExtended.ToLineBillQuotation();
 
+                var datacontext = new AjoutModifLigneCommandeViewModel(lineQuotation);
+                var uc = new AjoutModifLigneCommande();
+                uc.DataContext = datacontext;
+                var wnd = new WindowsSimple(uc);
+                datacontext.CloseWindow += wnd.CloseWindowEvent;
+                datacontext.SaveLineBillQuotation += datacontext_SaveLineBillQuotation;
+                wnd.Height = 400;
+                wnd.Width = 600;
+                wnd.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+            }
+        }
+
+        public void datacontext_SaveLineBillQuotation(System.Collections.Generic.List<LineBillQuotation> lineBillQuotation)
+        {
+            BillQuotation.BILL_LineBillQuotation = new ObservableCollection<LineBillQuotation>(lineBillQuotation);
+            RefreshCountAmount();
         }
 
         private void SaveBillCommandHandler()
         {
-
+            try
+            {
+                var billQuotationComplete = BillQuotation.ToBillQuotationComplete();
+                FacturationService.ModifyBillQuotation(billQuotationComplete);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
+
         private void CancelCommandHandler()
         {
-
+            DialogResult result = MessageBox.Show("Voulez-vous vraiment annuler vos modifications?", "Annuler", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                if (CloseWindow != null)
+                    CloseWindow.Invoke();
+            }
         }
-        #endregion
+
+        private void RefreshCountAmount()
+        {
+            TotalHT = 0;
+            TotalTTC = 0;
+
+            // Additionne les prix des produits
+            foreach (var line in BillQuotation.BILL_LineBillQuotation)
+            {
+                TotalHT = TotalHT;
+                TotalTTC = TotalTTC;
+            }
+        }
+
+        #endregion Methods
 
         #region Commands
+
         private RelayCommand _FilterCommand;
 
         public ICommand FilterCommand
@@ -215,8 +322,6 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-
-
         private RelayCommand _ExportPdfCommand;
 
         public ICommand ExportPdfCommand
@@ -228,7 +333,6 @@ namespace ModuleFactureUserControl.ViewModel
                 return _ExportPdfCommand;
             }
         }
-
 
         private RelayCommand _ExportXlsCommand;
 
@@ -242,8 +346,6 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-
-
         private RelayCommand _UpdateLineCommand;
 
         public ICommand UpdateLineCommand
@@ -255,6 +357,7 @@ namespace ModuleFactureUserControl.ViewModel
                 return _UpdateLineCommand;
             }
         }
+
         //private RelayCommand<long> _RemoveLineCommand;
 
         //public ICommand RemoveLineCommand
@@ -291,6 +394,6 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        #endregion
+        #endregion Commands
     }
 }

@@ -1,24 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using ModuleFactureUserControl.FacturationService;
+﻿using ModuleFactureUserControl.FacturationService;
 using ModuleFactureUserControl.Helpers;
 using ModuleFactureUserControl.Mapper;
 using ModuleFactureUserControl.Model;
 using ModuleFactureUserControl.View;
 using ModuleFactureUserControl.Windows;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace ModuleFactureUserControl.ViewModel
 {
     public class ListeFactureDevisViewModel : NotificationObject
     {
         #region Properties
+
         private FacturationServiceClient FacturationService;
-        #endregion
+
+        #endregion Properties
 
         #region Initialisation
+
         public ListeFactureDevisViewModel()
         {
             IsBusy = true;
@@ -36,20 +41,22 @@ namespace ModuleFactureUserControl.ViewModel
                         BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //throw;
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                 }
             }).ContinueWith((x) =>
             {
                 IsBusy = false;
             });
-
         }
-        #endregion
+
+        #endregion Initialisation
 
         #region Fields
+
         #region Filters
+
         private string _NomClient;
 
         public string NomClient
@@ -61,6 +68,7 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("NomClient");
             }
         }
+
         private DateTime _DateFacturation;
 
         public DateTime DateFacturation
@@ -108,7 +116,6 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("Statut");
             }
         }
-
 
         private double _MontantMin;
 
@@ -168,8 +175,7 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-
-        #endregion
+        #endregion Filters
 
         private bool _IsBusy;
 
@@ -182,7 +188,6 @@ namespace ModuleFactureUserControl.ViewModel
                 RaisePropertyChanged("IsBusy");
             }
         }
-
 
         private ObservableCollection<BillQuotation> _BillsQuotations;
 
@@ -208,7 +213,7 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        #endregion
+        #endregion Fields
 
         #region Methods
 
@@ -232,12 +237,10 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void ExportPdfCommandHandler()
         {
-
         }
 
         private void ExportXlsCommandHandler()
         {
-
         }
 
         private void FilterCommandHandler()
@@ -254,31 +257,54 @@ namespace ModuleFactureUserControl.ViewModel
                     //    BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
                     //}
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                 }
             });
         }
 
         private void CreateBillCommandHandler()
         {
+            var datacontext = new FactureDevisEditionViewModel();
             var uc = new FactureDevisEdition();
+            uc.DataContext = datacontext;
             var wnd = new WindowsSimple(uc);
+            datacontext.CloseWindow += wnd.CloseWindowEvent;
+            wnd.Height = 400;
+            wnd.Width = 600;
             wnd.Show();
         }
 
         private void UpdateBillCommandHandler()
         {
+            try
+            {
+                var billQuotationComplete = FacturationService.GetBillQuotation(SelectedBillQuotation.BillQuotation_Id);
+                var selectedBillQuotation = billQuotationComplete.ToBillQuotation();
 
+                var datacontext = new FactureDevisEditionViewModel(selectedBillQuotation);
+                var uc = new FactureDevisEdition();
+                uc.DataContext = datacontext;
+                var wnd = new WindowsSimple(uc);
+                datacontext.CloseWindow += wnd.CloseWindowEvent;
+                wnd.Height = 400;
+                wnd.Width = 600;
+                wnd.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+            }
         }
-        #endregion
+
+        #endregion Methods
 
         #region Commands
+
         private RelayCommand _FilterCommand;
 
-        public RelayCommand FilterCommand
+        public ICommand FilterCommand
         {
             get
             {
@@ -286,16 +312,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _FilterCommand = new RelayCommand((x) => FilterCommandHandler());
                 return _FilterCommand;
             }
-            set
-            {
-                _FilterCommand = value;
-                RaisePropertyChanged("FilterCommand");
-            }
         }
 
         private RelayCommand _PrintCommand;
 
-        public RelayCommand PrintCommand
+        public ICommand PrintCommand
         {
             get
             {
@@ -303,18 +324,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _PrintCommand = new RelayCommand((x) => PrintCommandHandler());
                 return _PrintCommand;
             }
-            set
-            {
-                _PrintCommand = value;
-                RaisePropertyChanged("PrintCommand");
-            }
         }
-
-
 
         private RelayCommand _ExportPdfCommand;
 
-        public RelayCommand ExportPdfCommand
+        public ICommand ExportPdfCommand
         {
             get
             {
@@ -322,17 +336,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _ExportPdfCommand = new RelayCommand((x) => ExportPdfCommandHandler());
                 return _ExportPdfCommand;
             }
-            set
-            {
-                _ExportPdfCommand = value;
-                RaisePropertyChanged("ExportPdfCommand");
-            }
         }
-
 
         private RelayCommand _ExportXlsCommand;
 
-        public RelayCommand ExportXlsCommand
+        public ICommand ExportXlsCommand
         {
             get
             {
@@ -340,16 +348,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _ExportXlsCommand = new RelayCommand((x) => ExportXlsCommandHandler());
                 return _ExportXlsCommand;
             }
-            set
-            {
-                _ExportXlsCommand = value;
-                RaisePropertyChanged("ExportXlsCommand");
-            }
         }
 
         private RelayCommand _CreateBillCommand;
 
-        public RelayCommand CreateBillCommand
+        public ICommand CreateBillCommand
         {
             get
             {
@@ -357,16 +360,11 @@ namespace ModuleFactureUserControl.ViewModel
                     _CreateBillCommand = new RelayCommand((x) => CreateBillCommandHandler());
                 return _CreateBillCommand;
             }
-            set
-            {
-                _CreateBillCommand = value;
-                RaisePropertyChanged("CreateBillCommand");
-            }
         }
 
         private RelayCommand _UpdateBillCommand;
 
-        public RelayCommand UpdateBillCommand
+        public ICommand UpdateBillCommand
         {
             get
             {
@@ -374,13 +372,8 @@ namespace ModuleFactureUserControl.ViewModel
                     _UpdateBillCommand = new RelayCommand((x) => UpdateBillCommandHandler());
                 return _UpdateBillCommand;
             }
-            set
-            {
-                _UpdateBillCommand = value;
-                RaisePropertyChanged("UpdateBillCommand");
-            }
         }
 
-        #endregion
+        #endregion Commands
     }
 }

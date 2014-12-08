@@ -20,7 +20,6 @@ namespace ModuleFactureUserControl.Windows
             grid_UC.Children.Add(Uc);
         }
 
-
         private void InitGrid()
         {
             if (grid_UC == null)
@@ -30,5 +29,9 @@ namespace ModuleFactureUserControl.Windows
                 grid_UC.Children.Clear();
         }
 
+        internal void CloseWindowEvent()
+        {
+            this.Close();
+        }
     }
 }
