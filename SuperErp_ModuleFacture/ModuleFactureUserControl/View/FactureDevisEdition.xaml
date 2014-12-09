@@ -61,8 +61,8 @@
 
             <!--Boutons export / Impression-->
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Choix du type du document :" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" />
-                <ComboBox ItemsSource="{Binding AllType}" SelectedItem="{Binding BillQuotation.Type}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" />
+                <TextBlock Text="Choix du type du document :" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" Height="27" />
+                <ComboBox ItemsSource="{Binding AllType}" SelectedItem="{Binding BillQuotation.Type}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" Height="57" Margin="5,0,0,0"/>
                 <TextBlock Text="{Binding BillQuotation.Type}" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanNegateToCollapsedVisibilityConverter}}" />
                 <TextBlock Text="{Binding BillQuotation.NBill}" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanNegateToCollapsedVisibilityConverter}}" />
             </StackPanel>
@@ -96,7 +96,7 @@
             </Border>
 
             <!--Emetteur-->
-            <Border Grid.Row="1"  BorderBrush="Gray" BorderThickness="1.2">
+            <Border Grid.Row="1"  BorderBrush="Gray" BorderThickness="1.2" Margin="5">
                 <StackPanel>
                     <StackPanel  Orientation="Horizontal">
                         <TextBlock Name="Tb_Emetteur" Text="Emetteur : "  Style="{StaticResource textBlockStyleBlack}" />
@@ -110,7 +110,7 @@
             </Border>
 
             <!--Gestion devis/facture-->
-            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1.2" Margin="4" HorizontalAlignment="Center" Height="Auto">
+            <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1.2" Margin="5" HorizontalAlignment="Center" Height="Auto">
                 <StackPanel>
                     <StackPanel   Orientation="Horizontal">
                         <TextBlock Name="Tb_StatutFacture" Text ="Statut Facture : " Style="{StaticResource textBlockStyleBlack}" />
@@ -133,12 +133,12 @@
             </Border>
 
             <!--Client-->
-            <StackPanel Grid.Row="2" Grid.Column="2">
-                <Border BorderBrush="Gray" BorderThickness="1.2" Margin="5">
+            <StackPanel Grid.Row="2" Grid.Column="2" Margin="5">
+                <Border BorderBrush="Gray" BorderThickness="1.2" >
                     <StackPanel Orientation="Vertical">
                         <StackPanel  Orientation="Horizontal">
                             <TextBlock Text="Client : "  HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" />
-                            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding AllCompany.Name}" SelectedItem="{Binding SelectedCompany,Mode=TwoWay}" />
+                            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding AllCompany}" SelectedItem="{Binding SelectedCompany,Mode=TwoWay}" />
                         </StackPanel>
                         <TextBlock Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Adress}" />
                         <TextBlock HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.City}" />

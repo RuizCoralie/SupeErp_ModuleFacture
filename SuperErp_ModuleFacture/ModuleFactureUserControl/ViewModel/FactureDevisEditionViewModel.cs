@@ -35,20 +35,31 @@ namespace ModuleFactureUserControl.ViewModel
         {
             FacturationService = new FacturationServiceClient();
             ServiceGestionClient = new ClientService.ServiceGestionClientClient();
+            IsNewBillQuotation = true;
             Task.Factory.StartNew(() =>
             {
-                IsNewBillQuotation = true;
+                InitListFiltre();
                 try
                 {
                     //Transmitter
                     var transmitter = FacturationService.GetTransmitter();
                     if (transmitter != null)
-                        transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
+                    {
+                        Helpers.Helpers.DispatchService.Invoke(() =>
+                            {
+                                transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
+                            });
+                    }
 
                     //Company
                     var company = ServiceGestionClient.GetListCompany();
                     if (company != null)
-                        company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
+                    {
+                        Helpers.Helpers.DispatchService.Invoke(() =>
+                            {
+                                company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
+                            });
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -60,9 +71,9 @@ namespace ModuleFactureUserControl.ViewModel
         public FactureDevisEditionViewModel(BillQuotation billQuotation)
         {
             FacturationService = new FacturationServiceClient();
+            IsNewBillQuotation = false;
             Task.Factory.StartNew(() =>
             {
-                IsNewBillQuotation = false;
                 BillQuotation = billQuotation;
                 TotalHT = BillQuotation.AmountDF;
                 TotalTTC = BillQuotation.AmountTTC;
@@ -98,7 +109,7 @@ namespace ModuleFactureUserControl.ViewModel
 
         private bool _IsNewBillQuotation;
 
-        private bool IsNewBillQuotation
+        public bool IsNewBillQuotation
         {
             get
             {
@@ -170,7 +181,12 @@ namespace ModuleFactureUserControl.ViewModel
 
         public ObservableCollection<Transmitter> AllTransmitter
         {
-            get { return _AllTransmitter; }
+            get
+            {
+                if (_AllTransmitter == null)
+                    _AllTransmitter = new ObservableCollection<Transmitter>();
+                return _AllTransmitter;
+            }
             set
             {
                 _AllTransmitter = value;
@@ -194,7 +210,12 @@ namespace ModuleFactureUserControl.ViewModel
 
         public ObservableCollection<ModuleFactureUserControl.Model.Company> AllCompany
         {
-            get { return _AllCompany; }
+            get
+            {
+                if (_AllCompany == null)
+                    _AllCompany = new ObservableCollection<Model.Company>();
+                return _AllCompany;
+            }
             set
             {
                 _AllCompany = value;
@@ -263,6 +284,7 @@ namespace ModuleFactureUserControl.ViewModel
         //        //FacturationService.RemoveLine(idLine);
         //    }
         //}
+
         private void PrintCommandHandler()
         {
         }
