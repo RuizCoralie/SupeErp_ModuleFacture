@@ -1,16 +1,17 @@
-﻿using ModuleFactureUserControl.FacturationService;
-using ModuleFactureUserControl.Helpers;
-using ModuleFactureUserControl.Mapper;
-using ModuleFactureUserControl.Model;
-using ModuleFactureUserControl.View;
-using ModuleFactureUserControl.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using System.Windows.Media;
+using ModuleFactureUserControl.FacturationService;
+using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.Mapper;
+using ModuleFactureUserControl.Model;
+using ModuleFactureUserControl.View;
+using ModuleFactureUserControl.Windows;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -231,8 +232,18 @@ namespace ModuleFactureUserControl.ViewModel
             AllStatut.Add(BillQuotationStatutEnum.Refuse);
         }
 
-        private void PrintCommandHandler()
+        private void PrintCommandHandler(Visual visual)
         {
+            System.Windows.Controls.PrintDialog Printdlg = new System.Windows.Controls.PrintDialog();
+            if ((bool)Printdlg.ShowDialog().GetValueOrDefault())
+            {
+                //Size pageSize = new Size(Printdlg.PrintableAreaWidth, Printdlg.PrintableAreaHeight);
+
+                //visual.Measure(pageSize);
+                //visual.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+
+                Printdlg.PrintVisual(visual, "Listes Factures / Devis");
+            }
         }
 
         private void ExportPdfCommandHandler()
@@ -314,14 +325,14 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private RelayCommand _PrintCommand;
+        private RelayCommand<Visual> _PrintCommand;
 
         public ICommand PrintCommand
         {
             get
             {
                 if (_PrintCommand == null)
-                    _PrintCommand = new RelayCommand((x) => PrintCommandHandler());
+                    _PrintCommand = new RelayCommand<Visual>((x) => PrintCommandHandler(x));
                 return _PrintCommand;
             }
         }
