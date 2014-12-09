@@ -57,7 +57,7 @@
             <TextBlock Text="Liste des devis et Facture" Style="{StaticResource textBlockStyle}" />
             <Border Grid.Row="0" Grid.Column="0" BorderBrush="Gray" BorderThickness="1.2" Margin="8" HorizontalAlignment="Left">
                 <StackPanel Orientation="Vertical">
-                    <Button Style="{StaticResource radButtonStyle}" Margin="8" Command="{Binding PrintCommand}">
+                    <Button Style="{StaticResource radButtonStyle}" Margin="8" Command="{Binding PrintCommand}" Click="Print">
                         <StackPanel Orientation="Horizontal">
                             <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Name="appbar_printer" Width="20" Height="20" Clip="F1 M 0,0L 76,0L 76,76L 0,76L 0,0">
                                 <Path Width="17" Height="17" Stretch="Fill" Fill="{StaticResource AccentBrush}" Data="F1 M 25,27L 25,17L 51,17L 51,27L 47,27L 47,21L 29,21L 29,27L 25,27 Z M 16,28L 60,28L 60,51L 51,51L 51,60L 25,60L 25,51L 16,51L 16,28 Z M 55,46L 55,33L 21,33L 21,46L 55,46 Z M 25,44L 25,39L 51,39L 51,44L 25,44 Z " />
@@ -168,7 +168,7 @@
 
         <!--<telerik:RadBusyIndicator Grid.Row="2" Grid.ColumnSpan="2" IsBusy="{Binding IsBusy}" IsIndeterminate="True">-->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}"
-                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False">
+                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False" Name="dataListFD">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
                 <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />
