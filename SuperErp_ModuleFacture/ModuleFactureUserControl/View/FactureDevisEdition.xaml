@@ -114,11 +114,11 @@
                 <StackPanel>
                     <StackPanel   Orientation="Horizontal">
                         <TextBlock Name="Tb_StatutFacture" Text ="Statut Facture : " Style="{StaticResource textBlockStyleBlack}" />
-                        <TextBlock Name="Tb_Statut" Text=" Statut" Style="{StaticResource textBlockStyleBlack}" />
+                        <TextBlock Text="{Binding BillQuotation.Status.Libel}" Style="{StaticResource textBlockStyleBlack}" />
                     </StackPanel>
-                    <Button Name="Bt_EtapeNext" Margin="5">
+                    <Button Margin="5">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Passer à l'étape de validation suivante -->" Style="{StaticResource textBlockStyleBlack}"></TextBlock>
+                            <TextBlock Text="Passer à l'étape de validation suivante -->" Style="{StaticResource textBlockStyleBlack}" />
                         </StackPanel>
                     </Button>
                     <!--<Button Name="Bt_Modifier" Width="60" Margin="5">
@@ -133,20 +133,19 @@
             </Border>
 
             <!--Client-->
-            <StackPanel Grid.Row="2" Grid.Column="2" Margin="5">
-                <Border BorderBrush="Gray" BorderThickness="1.2">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel  Orientation="Horizontal">
-                            <TextBlock Text="Client : "  HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" />
-                            <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding AllCompany}" SelectedItem="{Binding SelectedCompany,Mode=TwoWay}" />
-                        </StackPanel>
-                        <TextBlock Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Adress}" />
-                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.City}" />
-                        <TextBlock Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Postalcode}" />
-                        <TextBlock HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Siret}" />
+
+            <Border BorderBrush="Gray" BorderThickness="1.2" Grid.Row="2" Grid.Column="2" Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel  Orientation="Horizontal">
+                        <TextBlock Text="Client : "  HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" />
+                        <ComboBox HorizontalAlignment="Left" ItemsSource="{Binding AllCompany}" SelectedItem="{Binding SelectedCompany,Mode=TwoWay}" />
                     </StackPanel>
-                </Border>
-            </StackPanel>
+                    <TextBlock Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Adress}" />
+                    <TextBlock HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.City}" />
+                    <TextBlock Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Postalcode}" />
+                    <TextBlock HorizontalAlignment="Left" Style="{StaticResource textBlockStyleBlack}" Text="{Binding SelectedCompany.Siret}" />
+                </StackPanel>
+            </Border>
         </Grid>
 
         <!--Lignes facture/devis-->
@@ -180,13 +179,15 @@
 
             <!--Lignes facture/devis-->
             <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillQuotation.BILL_LineBillQuotation}"
-                      IsReadOnly="True" AutoGenerateColumns="False">
+                      IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserReorderColumns="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date"  Binding="{Binding DateLine}" />
                     <DataGridTextColumn Header="Produit"  Binding="{Binding BILL_Product.Name}" />
                     <DataGridTextColumn Header="Quantité"  Binding="{Binding Quantite}" />
-                    <DataGridTextColumn Header="Montant HT" />
-                    <DataGridTextColumn Header="Montant TTC" />
+                    <DataGridTextColumn Header="Montant HT" Binding="{Binding AmountHT}" />
+                    <DataGridTextColumn Header="TVA" Binding="{Binding BILL_Product.BILL_Vat.Rate}" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}, Path=BillQuotation.Vat,Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" />
+                    <DataGridTextColumn Header="Montant TTC" Binding="{Binding AmountTTC}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -1,9 +1,4 @@
 ﻿using ModuleFactureUserControl.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModuleFactureUserControl.Model
 {
@@ -22,21 +17,20 @@ namespace ModuleFactureUserControl.Model
         public bool IsInBill
         {
             get { return _IsInBill; }
-            set 
-            { 
+            set
+            {
                 _IsInBill = value;
                 RaisePropertyChanged("IsInBill");
             }
         }
-        
 
         private System.DateTime _DateLine;
 
         public System.DateTime DateLine
         {
             get { return _DateLine; }
-            set 
-            { 
+            set
+            {
                 _DateLine = value;
                 RaisePropertyChanged("DateLine");
             }
@@ -47,9 +41,10 @@ namespace ModuleFactureUserControl.Model
         public double Quantite
         {
             get { return _Quantite; }
-            set 
-            { 
+            set
+            {
                 _Quantite = value;
+                RefreshCountLineAmount();
                 RaisePropertyChanged("Quantite");
             }
         }
@@ -59,8 +54,8 @@ namespace ModuleFactureUserControl.Model
         private BillQuotation BILL_BillQuotation
         {
             get { return _BILL_BillQuotation; }
-            set 
-            { 
+            set
+            {
                 _BILL_BillQuotation = value;
                 RaisePropertyChanged("BILL_BillQuotation");
             }
@@ -70,15 +65,52 @@ namespace ModuleFactureUserControl.Model
 
         public Product BILL_Product
         {
-            get { return _BILL_Product; }
-            set 
-            { 
+            get
+            {
+                return _BILL_Product;
+            }
+            set
+            {
                 _BILL_Product = value;
                 RaisePropertyChanged("BILL_Product");
             }
         }
-        
-        
-        
+
+        private double _AmountHT;
+
+        public double AmountHT
+        {
+            get { return _AmountHT; }
+            set
+            {
+                _AmountHT = value;
+                RaisePropertyChanged("AmountHT");
+            }
+        }
+
+        private double _AmountTTC;
+
+        public double AmountTTC
+        {
+            get { return _AmountTTC; }
+            set
+            {
+                _AmountTTC = value;
+                RaisePropertyChanged("AmountTTC");
+            }
+        }
+
+        //Methods
+        private void RefreshCountLineAmount()
+        {
+            if (BILL_Product != null)
+            {
+                AmountHT = Quantite * BILL_Product.Price;
+                if (BILL_Product.BILL_Vat != null)
+                    AmountTTC = (AmountHT * BILL_Product.BILL_Vat.Rate).Value;
+                else
+                    AmountTTC = AmountHT;
+            }
+        }
     }
 }

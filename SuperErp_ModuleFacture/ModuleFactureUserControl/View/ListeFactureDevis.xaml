@@ -168,7 +168,8 @@
 
         <!--<telerik:RadBusyIndicator Grid.Row="2" Grid.ColumnSpan="2" IsBusy="{Binding IsBusy}" IsIndeterminate="True">-->
         <DataGrid Grid.Row="2" Grid.ColumnSpan="2" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding BillsQuotations}"
-                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False" Name="dataGrid">
+                    SelectedItem="{Binding SelectedBillQuotation, Mode=TwoWay}" AutoGenerateColumns="False" Name="dataGrid"
+                  CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Numéros" Binding="{Binding NBill}" />
                 <DataGridTextColumn Header="Date" Binding="{Binding DateBillQuotation}" />

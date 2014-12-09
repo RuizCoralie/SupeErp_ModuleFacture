@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ModuleFactureUserControl.Model;
+using System;
 using System.Collections.ObjectModel;
-using ModuleFactureUserControl.Model;
 
 namespace ModuleFactureUserControl.Mapper
 {
@@ -38,6 +38,8 @@ namespace ModuleFactureUserControl.Mapper
                 billQuotation.BILL_Transmitter = billQuotationCompleteWpf.BILL_Transmitter.ToTransmitter();
                 billQuotation.BillQuotation_Id = billQuotationCompleteWpf.BillQuotation_Id;
                 billQuotation.Company = billQuotationCompleteWpf.Company.ToCompany();
+                billQuotation.Company_Id = billQuotationCompleteWpf.Company.Id;
+                billQuotation.Transmitter_Id = billQuotationCompleteWpf.BILL_Transmitter.Transmitter_Id;
                 billQuotation.DateBillQuotation = billQuotationCompleteWpf.DateBillQuotation;
                 billQuotation.NBill = billQuotationCompleteWpf.NBill;
                 billQuotation.Vat = billQuotationCompleteWpf.Vat;
@@ -153,6 +155,7 @@ namespace ModuleFactureUserControl.Mapper
             }
             return linesBillQuotation;
         }
+
         public static FacturationService.BILL_LineBillQuotation[] ToLineBillQuotation(this ObservableCollection<LineBillQuotation> linesBillQuotationWpf)
         {
             var linesBillQuotation = new FacturationService.BILL_LineBillQuotation[250];
@@ -176,6 +179,7 @@ namespace ModuleFactureUserControl.Mapper
             {
                 lineBillQuotation.BILL_Product = lineBillQuotationWpf.BILL_Product.ToProduct();
                 lineBillQuotation.DateLine = lineBillQuotationWpf.DateLine;
+                lineBillQuotation.Product_Id = lineBillQuotationWpf.BILL_Product.Product_Id;
                 lineBillQuotation.LineBillQuotation_Id = lineBillQuotationWpf.LineBillQuotation_Id;
                 lineBillQuotation.Quantite = lineBillQuotationWpf.Quantite;
             }
@@ -190,11 +194,14 @@ namespace ModuleFactureUserControl.Mapper
             var lineBillQuotation = new FacturationService.LineExtended();
             try
             {
-                //lineBillQuotation.BILL_Product = lineBillQuotationExtendedWpf.BILL_Product.ToProduct();
-                //lineBillQuotation.DateLine = lineBillQuotationExtendedWpf.DateLine;
-                //lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedWpf.LineBillQuotation_Id;
-                //lineBillQuotation.Quantite = lineBillQuotationExtendedWpf.Quantite;
-                //lineBillQuotation.Included = lineBillQuotationExtendedWpf.IsInBill;
+                lineBillQuotation.BILL_Product = lineBillQuotationExtendedWpf.BILL_Product.ToProduct();
+                lineBillQuotation.DateLine = lineBillQuotationExtendedWpf.DateLine;
+                lineBillQuotation.Product_Id = lineBillQuotationExtendedWpf.BILL_Product.Product_Id;
+                lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedWpf.LineBillQuotation_Id;
+                lineBillQuotation.Quantite = lineBillQuotationExtendedWpf.Quantite;
+                lineBillQuotation.Included = lineBillQuotationExtendedWpf.IsInBill;
+                lineBillQuotation.AmountHT = lineBillQuotationExtendedWpf.AmountHT;
+                lineBillQuotation.AmountTTC = lineBillQuotationExtendedWpf.AmountTTC;
             }
             catch (Exception ex)
             {
@@ -209,6 +216,8 @@ namespace ModuleFactureUserControl.Mapper
             {
                 product.BILL_Category = productWpf.BILL_Category.ToCategory();
                 product.BILL_Vat = productWpf.BILL_Vat.ToVat();
+                product.Category_Id = productWpf.BILL_Category.Category_Id;
+                product.Vat_Id = productWpf.BILL_Vat.Vat_Id;
                 product.DescriptionPro = productWpf.DescriptionPro;
                 product.Name = productWpf.Name;
                 product.Price = productWpf.Price;

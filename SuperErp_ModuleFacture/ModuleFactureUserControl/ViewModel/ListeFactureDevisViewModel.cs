@@ -1,4 +1,10 @@
-﻿using System;
+﻿using ModuleFactureUserControl.FacturationService;
+using ModuleFactureUserControl.Helpers;
+using ModuleFactureUserControl.Mapper;
+using ModuleFactureUserControl.Model;
+using ModuleFactureUserControl.View;
+using ModuleFactureUserControl.Windows;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,12 +12,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using ModuleFactureUserControl.FacturationService;
-using ModuleFactureUserControl.Helpers;
-using ModuleFactureUserControl.Mapper;
-using ModuleFactureUserControl.Model;
-using ModuleFactureUserControl.View;
-using ModuleFactureUserControl.Windows;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -29,27 +29,9 @@ namespace ModuleFactureUserControl.ViewModel
         {
             IsBusy = true;
             FacturationService = new FacturationServiceClient();
-            Task.Factory.StartNew(() =>
-            {
-                InitListFiltre();
-                try
-                {
-                    var billsQuotationsService = FacturationService.GetListQuotation();
-                    if (billsQuotationsService != null)
-                    {
-                        var billsQuotation = new List<BillQuotation>();
-                        billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
-                        BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
-                }
-            }).ContinueWith((x) =>
-            {
-                IsBusy = false;
-            });
+            InitListFiltre();
+
+            RefreshListQuotation();
         }
 
         #endregion Initialisation
@@ -218,6 +200,30 @@ namespace ModuleFactureUserControl.ViewModel
 
         #region Methods
 
+        private void RefreshListQuotation()
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    var billsQuotationsService = FacturationService.GetListQuotation();
+                    if (billsQuotationsService != null)
+                    {
+                        var billsQuotation = new List<BillQuotation>();
+                        billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
+                        BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            }).ContinueWith((x) =>
+            {
+                IsBusy = false;
+            });
+        }
+
         private void InitListFiltre()
         {
             AllType.Add(BillQuotationType.Facture);
@@ -282,9 +288,15 @@ namespace ModuleFactureUserControl.ViewModel
             uc.DataContext = datacontext;
             var wnd = new WindowsSimple(uc);
             datacontext.CloseWindow += wnd.CloseWindowEvent;
-            wnd.Height = 400;
-            wnd.Width = 600;
+            datacontext.RefreshListQuotationEvent += datacontext_RefreshListQuotationEvent;
+            wnd.Height = 500;
+            wnd.Width = 700;
             wnd.Show();
+        }
+
+        private void datacontext_RefreshListQuotationEvent()
+        {
+            RefreshListQuotation();
         }
 
         private void UpdateBillCommandHandler()

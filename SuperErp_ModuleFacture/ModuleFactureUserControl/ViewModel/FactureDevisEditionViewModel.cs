@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Input;
-using ModuleFactureUserControl.FacturationService;
+﻿using ModuleFactureUserControl.FacturationService;
 using ModuleFactureUserControl.Helpers;
 using ModuleFactureUserControl.Mapper;
 using ModuleFactureUserControl.Model;
 using ModuleFactureUserControl.View;
 using ModuleFactureUserControl.Windows;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -18,6 +18,8 @@ namespace ModuleFactureUserControl.ViewModel
         #region Events
 
         public event Action CloseWindow;
+
+        public event Action RefreshListQuotationEvent;
 
         #endregion Events
 
@@ -36,6 +38,7 @@ namespace ModuleFactureUserControl.ViewModel
             FacturationService = new FacturationServiceClient();
             ServiceGestionClient = new ClientService.ServiceGestionClientClient();
             IsNewBillQuotation = true;
+
             Task.Factory.StartNew(() =>
             {
                 InitListFiltre();
@@ -99,7 +102,6 @@ namespace ModuleFactureUserControl.ViewModel
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
                 }
-
             });
         }
 
@@ -173,6 +175,7 @@ namespace ModuleFactureUserControl.ViewModel
             set
             {
                 _SelectedTransmitter = value;
+                BillQuotation.BILL_Transmitter = _SelectedTransmitter;
                 RaisePropertyChanged("SelectedTransmistter");
             }
         }
@@ -202,6 +205,7 @@ namespace ModuleFactureUserControl.ViewModel
             set
             {
                 _SelectedCompany = value;
+                BillQuotation.Company = _SelectedCompany;
                 RaisePropertyChanged("SelectedCompany");
             }
         }
@@ -260,6 +264,10 @@ namespace ModuleFactureUserControl.ViewModel
         #endregion Fields
 
         #region Methods
+
+        private void ChangeStatusCommandHandler()
+        {
+        }
 
         private void InitListFiltre()
         {
@@ -335,7 +343,21 @@ namespace ModuleFactureUserControl.ViewModel
             try
             {
                 var billQuotationComplete = BillQuotation.ToBillQuotationComplete();
-                FacturationService.ModifyBillQuotation(billQuotationComplete);
+                var result = false;
+                if (IsNewBillQuotation)
+                {
+                    billQuotationComplete.DateBillQuotation = DateTime.Now;
+                    result = FacturationService.CreateBillQuotation(billQuotationComplete);
+                }
+                else
+                    result = FacturationService.ModifyBillQuotation(billQuotationComplete);
+
+                if (result && RefreshListQuotationEvent != null)
+                {
+                    RefreshListQuotationEvent.Invoke();
+                    if (CloseWindow != null)
+                        CloseWindow.Invoke();
+                }
             }
             catch (Exception ex)
             {
@@ -361,14 +383,27 @@ namespace ModuleFactureUserControl.ViewModel
             // Additionne les prix des produits
             foreach (var line in BillQuotation.BILL_LineBillQuotation)
             {
-                TotalHT = TotalHT;
-                TotalTTC = TotalTTC;
+                TotalHT = TotalHT + line.AmountHT;
+                TotalTTC = TotalTTC + line.AmountTTC;
             }
         }
 
         #endregion Methods
 
         #region Commands
+
+        ////ChangeStatusCommand
+        //private RelayCommand _ChangeStatusCommand;
+
+        //public ICommand ChangeStatusCommand
+        //{
+        //    get
+        //    {
+        //        if (_ChangeStatusCommand == null)
+        //            _ChangeStatusCommand = new RelayCommand((x) => ChangeStatusCommandHandler());
+        //        return ChangeStatusCommand;
+        //    }
+        //}
 
         private RelayCommand _FilterCommand;
 

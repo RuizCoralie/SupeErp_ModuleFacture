@@ -77,7 +77,8 @@
             </Button>
         </StackPanel>
 
-        <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding LineBillQuotation, Mode=TwoWay}">
+        <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding LineBillQuotation, Mode=TwoWay}"
+                  CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.Header>

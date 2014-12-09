@@ -1,6 +1,5 @@
-﻿using System.Collections.ObjectModel;
-using ModuleFactureUserControl.Helpers;
-
+﻿using ModuleFactureUserControl.Helpers;
+using System.Collections.ObjectModel;
 
 namespace ModuleFactureUserControl.Model
 {
@@ -25,6 +24,7 @@ namespace ModuleFactureUserControl.Model
                 RaisePropertyChanged("NBill");
             }
         }
+
         private BillQuotationType _Type;
 
         public BillQuotationType Type
@@ -36,6 +36,7 @@ namespace ModuleFactureUserControl.Model
                 RaisePropertyChanged("Type");
             }
         }
+
         private bool _Vat;
 
         public bool Vat
@@ -61,6 +62,7 @@ namespace ModuleFactureUserControl.Model
         }
 
         private double _AmountTTC;
+
         public double AmountTTC
         {
             get
@@ -103,7 +105,6 @@ namespace ModuleFactureUserControl.Model
             }
         }
 
-
         private Company _Company;
 
         public Company Company
@@ -121,7 +122,6 @@ namespace ModuleFactureUserControl.Model
             }
         }
 
-
         private BillQuotationStatus _BILL_BillQuotationStatus;
 
         public BillQuotationStatus BILL_BillQuotationStatus
@@ -136,6 +136,23 @@ namespace ModuleFactureUserControl.Model
             {
                 _BILL_BillQuotationStatus = value;
                 RaisePropertyChanged("BILL_BillQuotationStatus");
+            }
+        }
+
+        private Status _Status;
+
+        public Status Status
+        {
+            get
+            {
+                if (_Status == null)
+                    _Status = new Status();
+                return _Status;
+            }
+            set
+            {
+                _Status = value;
+                RaisePropertyChanged("Status");
             }
         }
 
@@ -155,8 +172,6 @@ namespace ModuleFactureUserControl.Model
                 RaisePropertyChanged("BILL_LineBillQuotation");
             }
         }
-
-
     }
 
     public enum BillQuotationType
@@ -176,7 +191,3 @@ namespace ModuleFactureUserControl.Model
         Payee
     }
 }
-
-
-
-

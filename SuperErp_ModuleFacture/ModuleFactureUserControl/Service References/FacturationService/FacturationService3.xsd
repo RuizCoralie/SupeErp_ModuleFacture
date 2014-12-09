@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities" />
-  <xs:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfBillQuotationLight">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BillQuotationLight" nillable="true" type="tns:BillQuotationLight" />
@@ -37,12 +36,14 @@
   </xs:complexType>
   <xs:element name="ArrayOfLineCompleted" nillable="true" type="tns:ArrayOfLineCompleted" />
   <xs:complexType name="LineCompleted">
-    <xs:sequence>
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="BILL_BillQuotation" nillable="true" type="q3:BILL_BillQuotation" />
-      <xs:element minOccurs="0" name="BillQuotation_Id" type="xs:long" />
-    </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.Entities" base="q3:BILL_LineBillQuotation">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AmountHT" type="xs:double" />
+          <xs:element minOccurs="0" name="AmountTTC" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:element name="LineCompleted" nillable="true" type="tns:LineCompleted" />
   <xs:complexType name="ArrayOfLineExtended">
