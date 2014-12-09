@@ -1,7 +1,7 @@
-﻿using ModuleFactureUserControl.Model;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using ModuleFactureUserControl.Model;
 
 namespace ModuleFactureUserControl.Mapper
 {
@@ -122,8 +122,33 @@ namespace ModuleFactureUserControl.Mapper
             }
             return company;
         }
-
+        public static Company ToCompanyClient(this ClientService.Company companyService)
+        {
+            var company = new Company();
+            try
+            {
+                company.Adress = companyService.address;
+                company.City = companyService.city;
+                company.Id = companyService.id;
+                company.Name = companyService.name;
+                company.Postalcode = companyService.postalcode;
+                company.Siret = companyService.siret;
+            }
+            catch (Exception ex)
+            {
+            }
+            return company;
+        }
         public static ObservableCollection<LineBillQuotation> ToLineBillQuotation(this FacturationService.BILL_LineBillQuotation[] linesBillQuotationService)
+        {
+            var linesBillQuotation = new ObservableCollection<LineBillQuotation>();
+            foreach (var line in linesBillQuotationService)
+            {
+                linesBillQuotation.Add(line.ToLineBillQuotation());
+            }
+            return linesBillQuotation;
+        }
+        public static ObservableCollection<LineBillQuotation> ToLineBillQuotationExtended(this FacturationService.LineExtended[] linesBillQuotationService)
         {
             var linesBillQuotation = new ObservableCollection<LineBillQuotation>();
             foreach (var line in linesBillQuotationService)
@@ -154,11 +179,11 @@ namespace ModuleFactureUserControl.Mapper
             var lineBillQuotation = new LineBillQuotation();
             try
             {
-                lineBillQuotation.BILL_Product = lineBillQuotationExtendedService.BILL_Product.ToProduct();
-                lineBillQuotation.DateLine = lineBillQuotationExtendedService.DateLine;
-                lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedService.LineBillQuotation_Id;
-                lineBillQuotation.Quantite = lineBillQuotationExtendedService.Quantite;
-                lineBillQuotation.IsInBill = lineBillQuotationExtendedService.Included;
+                //lineBillQuotation.BILL_Product = lineBillQuotationExtendedService.BILL_Product.ToProduct();
+                //lineBillQuotation.DateLine = lineBillQuotationExtendedService.DateLine;
+                //lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedService.LineBillQuotation_Id;
+                //lineBillQuotation.Quantite = lineBillQuotationExtendedService.Quantite;
+                //lineBillQuotation.IsInBill = lineBillQuotationExtendedService.Included;
             }
             catch (Exception ex)
             {

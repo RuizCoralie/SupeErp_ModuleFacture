@@ -1,14 +1,8 @@
 ﻿using ModuleFactureUserControl.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModuleFactureUserControl.Model
 {
-   public class Company : NotificationObject
+    public class Company : NotificationObject
     {
 
         private long _Id;
@@ -24,8 +18,8 @@ namespace ModuleFactureUserControl.Model
         public string Name
         {
             get { return _Name; }
-            set 
-            { 
+            set
+            {
                 _Name = value;
                 RaisePropertyChanged("Name");
             }
@@ -36,8 +30,8 @@ namespace ModuleFactureUserControl.Model
         public string Siret
         {
             get { return _Siret; }
-            set 
-            { 
+            set
+            {
                 _Siret = value;
                 RaisePropertyChanged("Siret");
             }
@@ -48,8 +42,8 @@ namespace ModuleFactureUserControl.Model
         public string Adress
         {
             get { return _Adress; }
-            set 
-            { 
+            set
+            {
                 _Adress = value;
                 RaisePropertyChanged("Adress");
             }
@@ -62,8 +56,8 @@ namespace ModuleFactureUserControl.Model
         public int Postalcode
         {
             get { return _Postalcode; }
-            set 
-            { 
+            set
+            {
                 _Postalcode = value;
                 RaisePropertyChanged("Postalcode");
             }
@@ -74,16 +68,16 @@ namespace ModuleFactureUserControl.Model
         public string City
         {
             get { return _City; }
-            set 
-            { 
+            set
+            {
                 _City = value;
                 RaisePropertyChanged("City");
             }
         }
-        
-        
+
+
         //private ObservableCollection<BillQuotation> _BILL_BillQuotation;
-      
+
 
         //private ObservableCollection<BillQuotation> BILL_BillQuotation
         //{
@@ -100,6 +94,11 @@ namespace ModuleFactureUserControl.Model
         //        RaisePropertyChanged("BILL_BillQuotation");
         //    }
         //}
+
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 
 }

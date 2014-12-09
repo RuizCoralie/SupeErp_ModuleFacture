@@ -1,6 +1,6 @@
-﻿using ModuleFactureUserControl.Model;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using ModuleFactureUserControl.Model;
 
 namespace ModuleFactureUserControl.Mapper
 {
@@ -120,6 +120,39 @@ namespace ModuleFactureUserControl.Mapper
             return company;
         }
 
+        public static ClientService.Company ToCompanyClient(this Company companyWpf)
+        {
+            var company = new ClientService.Company();
+            try
+            {
+                company.address = companyWpf.Adress;
+                company.city = companyWpf.City;
+                company.id = companyWpf.Id;
+                company.name = companyWpf.Name;
+                company.postalcode = companyWpf.Postalcode;
+                company.siret = companyWpf.Siret;
+            }
+            catch (Exception ex)
+            {
+            }
+            return company;
+        }
+
+        public static FacturationService.LineExtended[] ToLineBillQuotationExtented(this ObservableCollection<LineBillQuotation> linesBillQuotationWpf)
+        {
+            var linesBillQuotation = new FacturationService.LineExtended[250];
+            for (int i = 0; i < linesBillQuotationWpf.Count - 1; i++)
+            {
+                try
+                {
+                    linesBillQuotation[i] = linesBillQuotationWpf[i].ToLineBillQuotationExtended();
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return linesBillQuotation;
+        }
         public static FacturationService.BILL_LineBillQuotation[] ToLineBillQuotation(this ObservableCollection<LineBillQuotation> linesBillQuotationWpf)
         {
             var linesBillQuotation = new FacturationService.BILL_LineBillQuotation[250];
@@ -157,11 +190,11 @@ namespace ModuleFactureUserControl.Mapper
             var lineBillQuotation = new FacturationService.LineExtended();
             try
             {
-                lineBillQuotation.BILL_Product = lineBillQuotationExtendedWpf.BILL_Product.ToProduct();
-                lineBillQuotation.DateLine = lineBillQuotationExtendedWpf.DateLine;
-                lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedWpf.LineBillQuotation_Id;
-                lineBillQuotation.Quantite = lineBillQuotationExtendedWpf.Quantite;
-                lineBillQuotation.Included = lineBillQuotationExtendedWpf.IsInBill;
+                //lineBillQuotation.BILL_Product = lineBillQuotationExtendedWpf.BILL_Product.ToProduct();
+                //lineBillQuotation.DateLine = lineBillQuotationExtendedWpf.DateLine;
+                //lineBillQuotation.LineBillQuotation_Id = lineBillQuotationExtendedWpf.LineBillQuotation_Id;
+                //lineBillQuotation.Quantite = lineBillQuotationExtendedWpf.Quantite;
+                //lineBillQuotation.Included = lineBillQuotationExtendedWpf.IsInBill;
             }
             catch (Exception ex)
             {

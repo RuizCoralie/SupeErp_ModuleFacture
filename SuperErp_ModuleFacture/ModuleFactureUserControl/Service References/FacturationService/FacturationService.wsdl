@@ -4,10 +4,16 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" />
-      <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities" />
+      <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities" />
+      <xsd:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IFacturationService_GetTransmitter_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransmitter" />
+  </wsdl:message>
+  <wsdl:message name="IFacturationService_GetTransmitter_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTransmitterResponse" />
+  </wsdl:message>
   <wsdl:message name="IFacturationService_GetListQuotation_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListQuotation" />
   </wsdl:message>
@@ -45,6 +51,10 @@
     <wsdl:part name="parameters" element="tns:ModifyBillQuotationResponse" />
   </wsdl:message>
   <wsdl:portType name="IFacturationService">
+    <wsdl:operation name="GetTransmitter">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/GetTransmitter" message="tns:IFacturationService_GetTransmitter_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/GetTransmitterResponse" message="tns:IFacturationService_GetTransmitter_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetListQuotation">
       <wsdl:input wsaw:Action="http://tempuri.org/IFacturationService/GetListQuotation" message="tns:IFacturationService_GetListQuotation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFacturationService/GetListQuotationResponse" message="tns:IFacturationService_GetListQuotation_OutputMessage" />
@@ -72,6 +82,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IFacturationService" type="tns:IFacturationService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTransmitter">
+      <soap:operation soapAction="http://tempuri.org/IFacturationService/GetTransmitter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListQuotation">
       <soap:operation soapAction="http://tempuri.org/IFacturationService/GetListQuotation" style="document" />
       <wsdl:input>

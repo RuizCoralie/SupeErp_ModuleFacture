@@ -1,13 +1,15 @@
-﻿using ModuleFactureUserControl.FacturationService;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
+using ModuleFactureUserControl.FacturationService;
 using ModuleFactureUserControl.Helpers;
 using ModuleFactureUserControl.Mapper;
 using ModuleFactureUserControl.Model;
 using ModuleFactureUserControl.View;
 using ModuleFactureUserControl.Windows;
-using System;
-using System.Collections.ObjectModel;
-using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace ModuleFactureUserControl.ViewModel
 {
@@ -23,6 +25,8 @@ namespace ModuleFactureUserControl.ViewModel
 
         private FacturationServiceClient FacturationService;
 
+        private ClientService.ServiceGestionClientClient ServiceGestionClient;
+
         #endregion Properties
 
         #region Initialisation
@@ -30,16 +34,62 @@ namespace ModuleFactureUserControl.ViewModel
         public FactureDevisEditionViewModel()
         {
             FacturationService = new FacturationServiceClient();
-            IsNewBillQuotation = true;
+            ServiceGestionClient = new ClientService.ServiceGestionClientClient();
+            Task.Factory.StartNew(() =>
+            {
+                IsNewBillQuotation = true;
+                try
+                {
+                    //Transmitter
+                    var transmitter = FacturationService.GetTransmitter();
+                    if (transmitter != null)
+                        transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
+
+                    //Company
+                    var company = ServiceGestionClient.GetListCompany();
+                    if (company != null)
+                        company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                }
+            });
         }
 
         public FactureDevisEditionViewModel(BillQuotation billQuotation)
         {
             FacturationService = new FacturationServiceClient();
-            IsNewBillQuotation = false;
-            BillQuotation = billQuotation;
-            TotalHT = BillQuotation.AmountDF;
-            TotalTTC = BillQuotation.AmountTTC;
+            Task.Factory.StartNew(() =>
+            {
+                IsNewBillQuotation = false;
+                BillQuotation = billQuotation;
+                TotalHT = BillQuotation.AmountDF;
+                TotalTTC = BillQuotation.AmountTTC;
+                try
+                {
+                    //Transmitter
+                    var transmitter = FacturationService.GetTransmitter();
+                    if (transmitter != null)
+                    {
+                        transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
+                        SelectedTransmistter = AllTransmitter.SingleOrDefault(x => x.Transmitter_Id == BillQuotation.BILL_Transmitter.Transmitter_Id);
+                    }
+
+                    //Company
+                    var company = ServiceGestionClient.GetListCompany();
+                    if (company != null)
+                    {
+                        company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
+                        SelectedCompany = AllCompany.SingleOrDefault(x => x.Id == BillQuotation.Company.Id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK);
+                }
+
+            });
         }
 
         #endregion Initialisation
@@ -234,7 +284,7 @@ namespace ModuleFactureUserControl.ViewModel
             try
             {
                 var lineQuotationExtended = FacturationService.GetAllLines(BillQuotation.BillQuotation_Id);
-                var lineQuotation = lineQuotationExtended.ToLineBillQuotation();
+                var lineQuotation = lineQuotationExtended.ToLineBillQuotationExtended();
 
                 var datacontext = new AjoutModifLigneCommandeViewModel(lineQuotation);
                 var uc = new AjoutModifLigneCommande();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ModuleFactureUserControl.Model;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using ModuleFactureUserControl.Helpers;
 
 
@@ -25,8 +19,8 @@ namespace ModuleFactureUserControl.Model
         public string NBill
         {
             get { return _NBill; }
-            set 
-            { 
+            set
+            {
                 _NBill = value;
                 RaisePropertyChanged("NBill");
             }
@@ -47,8 +41,8 @@ namespace ModuleFactureUserControl.Model
         public bool Vat
         {
             get { return _Vat; }
-            set 
-            { 
+            set
+            {
                 _Vat = value;
                 RaisePropertyChanged("Vat");
             }
@@ -59,16 +53,16 @@ namespace ModuleFactureUserControl.Model
         public double AmountDF
         {
             get { return _AmountDF; }
-            set 
-            { 
+            set
+            {
                 _AmountDF = value;
                 RaisePropertyChanged("AmountDF");
             }
         }
 
         private double _AmountTTC;
-        public double AmountTTC 
-        { 
+        public double AmountTTC
+        {
             get
             {
                 return _AmountTTC;
@@ -85,8 +79,8 @@ namespace ModuleFactureUserControl.Model
         public System.DateTime DateBillQuotation
         {
             get { return _DateBillQuotation; }
-            set 
-            { 
+            set
+            {
                 _DateBillQuotation = value;
                 RaisePropertyChanged("DateBillQuotation");
             }
@@ -96,9 +90,14 @@ namespace ModuleFactureUserControl.Model
 
         public Transmitter BILL_Transmitter
         {
-            get { return _BILL_Transmitter; }
-            set 
-            { 
+            get
+            {
+                if (_BILL_Transmitter == null)
+                    _BILL_Transmitter = new Transmitter();
+                return _BILL_Transmitter;
+            }
+            set
+            {
                 _BILL_Transmitter = value;
                 RaisePropertyChanged("BILL_Transmitter");
             }
@@ -109,25 +108,32 @@ namespace ModuleFactureUserControl.Model
 
         public Company Company
         {
-            get { return _Company; }
-            set 
-            { 
+            get
+            {
+                if (_Company == null)
+                    _Company = new Company();
+                return _Company;
+            }
+            set
+            {
                 _Company = value;
                 RaisePropertyChanged("Company");
             }
         }
-              
-        
+
+
         private BillQuotationStatus _BILL_BillQuotationStatus;
 
         public BillQuotationStatus BILL_BillQuotationStatus
         {
             get
-            {                   
-                return _BILL_BillQuotationStatus; 
+            {
+                if (_BILL_BillQuotationStatus == null)
+                    _BILL_BillQuotationStatus = new BillQuotationStatus();
+                return _BILL_BillQuotationStatus;
             }
-            set 
-            { 
+            set
+            {
                 _BILL_BillQuotationStatus = value;
                 RaisePropertyChanged("BILL_BillQuotationStatus");
             }
@@ -141,16 +147,17 @@ namespace ModuleFactureUserControl.Model
             {
                 if (_BILL_LineBillQuotation == null)
                     _BILL_LineBillQuotation = new ObservableCollection<LineBillQuotation>();
-                return _BILL_LineBillQuotation; }
-            set 
-            { 
+                return _BILL_LineBillQuotation;
+            }
+            set
+            {
                 _BILL_LineBillQuotation = value;
                 RaisePropertyChanged("BILL_LineBillQuotation");
             }
         }
-        
 
-   }
+
+    }
 
     public enum BillQuotationType
     {
@@ -161,7 +168,7 @@ namespace ModuleFactureUserControl.Model
     public enum BillQuotationStatutEnum
     {
         EnCoursDeRedaction,
-        Annule, 
+        Annule,
         Emis,
         Accepte,
         Refuse,
@@ -171,5 +178,5 @@ namespace ModuleFactureUserControl.Model
 }
 
 
-        
+
 

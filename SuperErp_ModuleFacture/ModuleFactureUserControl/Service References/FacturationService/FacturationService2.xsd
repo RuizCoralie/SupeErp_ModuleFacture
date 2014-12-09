@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" />
+  <xs:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SupErp.Entities" />
+  <xs:import schemaLocation="http://localhost:7880/FacturationWCF/FacturationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" />
+  <xs:element name="GetTransmitter">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTransmitterResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="GetTransmitterResult" nillable="true" type="q1:ArrayOfBILL_Transmitter" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetListQuotation">
     <xs:complexType>
       <xs:sequence />
@@ -9,7 +22,7 @@
   <xs:element name="GetListQuotationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetListQuotationResult" nillable="true" type="q1:ArrayOfBillQuotationLight" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetListQuotationResult" nillable="true" type="q2:ArrayOfBillQuotationLight" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -19,7 +32,7 @@
         <xs:element minOccurs="0" name="nomClient" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="numFact" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="dateDocument" nillable="true" type="xs:dateTime" />
-        <xs:element minOccurs="0" name="status" nillable="true" type="xs:long" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="status" nillable="true" type="q3:BILL_Status" />
         <xs:element minOccurs="0" name="MontantHTMin" nillable="true" type="xs:int" />
         <xs:element minOccurs="0" name="MontantHTMax" nillable="true" type="xs:int" />
         <xs:element minOccurs="0" name="isBill" nillable="true" type="xs:boolean" />
@@ -29,7 +42,7 @@
   <xs:element name="SearchBillQuotationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="SearchBillQuotationResult" nillable="true" type="q2:ArrayOfBillQuotationLight" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="SearchBillQuotationResult" nillable="true" type="q4:ArrayOfBillQuotationLight" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -43,7 +56,7 @@
   <xs:element name="GetBillQuotationResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetBillQuotationResult" nillable="true" type="q3:BillQuotationComplete" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetBillQuotationResult" nillable="true" type="q5:BillQuotationComplete" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -57,14 +70,14 @@
   <xs:element name="GetAllLinesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetAllLinesResult" nillable="true" type="q4:ArrayOfLineExtended" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="GetAllLinesResult" nillable="true" type="q6:ArrayOfLineExtended" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateBillQuotation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q5:BillQuotationComplete" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q7:BillQuotationComplete" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -78,7 +91,7 @@
   <xs:element name="ModifyBillQuotation">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q6:BillQuotationComplete" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SupErp.DAL.FacturationModele" minOccurs="0" name="billQuotation" nillable="true" type="q8:BillQuotationComplete" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

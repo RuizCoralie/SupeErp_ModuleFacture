@@ -1,10 +1,5 @@
-﻿using ModuleFactureUserControl.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using ModuleFactureUserControl.Helpers;
 
 namespace ModuleFactureUserControl.Model
 {
@@ -23,8 +18,8 @@ namespace ModuleFactureUserControl.Model
         public string CompanyName
         {
             get { return _CompanyName; }
-            set 
-            { 
+            set
+            {
                 _CompanyName = value;
                 RaisePropertyChanged("CompanyName");
             }
@@ -34,7 +29,7 @@ namespace ModuleFactureUserControl.Model
         public string Adress
         {
             get { return _Adress; }
-            set 
+            set
             {
                 _Adress = value;
                 RaisePropertyChanged("Adress");
@@ -46,8 +41,8 @@ namespace ModuleFactureUserControl.Model
         public int? PostCode
         {
             get { return _PostCode; }
-            set 
-            { 
+            set
+            {
                 _PostCode = value;
                 RaisePropertyChanged("PostCode");
             }
@@ -58,7 +53,7 @@ namespace ModuleFactureUserControl.Model
         public string City
         {
             get { return _City; }
-            set 
+            set
             {
                 _City = value;
                 RaisePropertyChanged("City");
@@ -71,8 +66,8 @@ namespace ModuleFactureUserControl.Model
         public long NSiret
         {
             get { return _NSiret; }
-            set 
-            { 
+            set
+            {
                 _NSiret = value;
                 RaisePropertyChanged("NSiret");
             }
@@ -84,8 +79,8 @@ namespace ModuleFactureUserControl.Model
         public string AdressMail
         {
             get { return _AdressMail; }
-            set 
-            { 
+            set
+            {
                 _AdressMail = value;
                 RaisePropertyChanged("AdressMail");
             }
@@ -97,14 +92,14 @@ namespace ModuleFactureUserControl.Model
         public string Phone
         {
             get { return _Phone; }
-            set 
-            { 
+            set
+            {
                 _Phone = value;
                 RaisePropertyChanged("Phone");
             }
         }
-        
-        
+
+
 
         private ObservableCollection<BillQuotation> _BILL_BillQuotation;
         private ObservableCollection<BillQuotation> BILL_BillQuotation
@@ -121,6 +116,11 @@ namespace ModuleFactureUserControl.Model
                 _BILL_BillQuotation = value;
                 RaisePropertyChanged("BILL_BillQuotation");
             }
+        }
+
+        public override string ToString()
+        {
+            return this.CompanyName;
         }
 
     }
