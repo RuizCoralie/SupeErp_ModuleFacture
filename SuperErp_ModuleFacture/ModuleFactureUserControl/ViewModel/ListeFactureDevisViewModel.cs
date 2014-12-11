@@ -274,7 +274,11 @@ namespace ModuleFactureUserControl.ViewModel
                 }
             }).ContinueWith((x) =>
             {
-                Helpers.Helpers.DispatchService.Invoke(() => { Status = new ObservableCollection<Status>(status); });
+                Helpers.Helpers.DispatchService.Invoke(() =>
+                {
+                    Status = new ObservableCollection<Status>(status);
+                    SelectedStatut = Status.First();
+                });
             });
         }
 

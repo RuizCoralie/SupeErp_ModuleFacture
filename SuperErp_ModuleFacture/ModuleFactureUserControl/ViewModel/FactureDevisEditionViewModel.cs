@@ -350,8 +350,8 @@ namespace ModuleFactureUserControl.ViewModel
                 var wnd = new WindowsSimple(uc);
                 datacontext.CloseWindow += wnd.CloseWindowEvent;
                 datacontext.SaveLineBillQuotation += datacontext_SaveLineBillQuotation;
-                wnd.Height = 400;
-                wnd.Width = 600;
+                wnd.Height = 600;
+                wnd.Width = 800;
                 wnd.Show();
             }
             catch (Exception ex)

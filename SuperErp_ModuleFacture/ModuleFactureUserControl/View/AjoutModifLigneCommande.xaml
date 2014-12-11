@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:ModuleFactureUserControl.ViewModel"
       mc:Ignorable="d"
-      d:DesignHeight="450" Width="600">
+      d:DesignHeight="600" Width="800">
     <UserControl.Resources>
         <viewModels:AjoutModifLigneCommandeViewModel x:Key="AjoutModifLigneCommandeViewModel" />
         <SolidColorBrush x:Key="AccentBrush" Color="#4388CC" />
@@ -41,7 +41,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -78,36 +78,30 @@
         </StackPanel>
 
         <DataGrid Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding LineBillQuotation, Mode=TwoWay}"
-                  CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                  CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.Header>
+                    <!--<DataGridTemplateColumn.Header>
                         <CheckBox IsChecked="{Binding AllProductsIsChecked, Mode=TwoWay}" Content="Select All" Width="70" />
-                    </DataGridTemplateColumn.Header>
+                    </DataGridTemplateColumn.Header>-->
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsInBill,ElementName=colCheckBox}" HorizontalAlignment="Center" />
+                            <CheckBox IsChecked="{Binding IsInBill, Mode=TwoWay}" HorizontalAlignment="Center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Produit" Binding="{Binding BILL_Product.Name}" />
-                <DataGridTextColumn Header="Désignation" Binding="{Binding BILL_Product.DescriptionPro}" />
-                <DataGridTextColumn Header="Catégorie" Binding="{Binding BILL_Product.BILL_Category.Name}" />
-                <DataGridTextColumn Header="Prix unitaire" Binding="{Binding BILL_Product.Price}" />
+                <DataGridTextColumn Header="Produit" Binding="{Binding BILL_Product.Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Désignation" Binding="{Binding BILL_Product.DescriptionPro}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding BILL_Product.BILL_Category.Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Prix unitaire" Binding="{Binding BILL_Product.Price}"  IsReadOnly="True" />
                 <DataGridTextColumn Header="Quantité" Binding="{Binding Quantite, Mode=TwoWay}" IsReadOnly="False" />
-                <DataGridTextColumn Header="Montant HT" />
-                <DataGridTextColumn Header="Montant TTC" />
+                <DataGridTextColumn Header="Montant HT" Binding="{Binding AmountHT}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Montant TTC"  Binding="{Binding AmountTTC}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
 
         <Border Grid.Row="2" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="1.2" Margin="5">
             <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Total HT : " Style="{StaticResource textBlockStyle}" />
-                    <TextBlock Text="{Binding TotalHT}" Style="{StaticResource textBlockStyle}" />
-                    <TextBlock Text="Total TTC : " Style="{StaticResource textBlockStyle}" />
-                    <TextBlock Text="{Binding TotalTTC}" Style="{StaticResource textBlockStyle}" />
-                </StackPanel>
                 <!--<StackPanel Orientation="Horizontal">
                     <TextBlock Text="Dont TVA : " Style="{StaticResource textBlock_BaseScriptsCount}" />
                     <TextBlock Text="" Style="{StaticResource textBlock_BaseScriptsCount}" />

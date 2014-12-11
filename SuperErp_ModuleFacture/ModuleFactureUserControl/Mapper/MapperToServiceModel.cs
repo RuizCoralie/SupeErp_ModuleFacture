@@ -152,7 +152,15 @@ namespace ModuleFactureUserControl.Mapper
             {
                 try
                 {
-                    linesBillQuotation[i] = linesBillQuotationWpf[i].ToLineBillQuotationExtended();
+                    var lines = linesBillQuotationWpf[i].ToLineBillQuotationExtended();
+                    linesBillQuotation[i] = new FacturationService.LineExtended()
+                    {
+                        BillQuotation_Id = lines.BillQuotation_Id,
+                        DateLine = lines.DateLine,
+                        LineBillQuotation_Id = lines.LineBillQuotation_Id,
+                        Product_Id = lines.Product_Id,
+                        Quantite = lines.Quantite
+                    };
                 }
                 catch (Exception)
                 {
@@ -164,11 +172,19 @@ namespace ModuleFactureUserControl.Mapper
         public static FacturationService.BILL_LineBillQuotation[] ToLineBillQuotation(this ObservableCollection<LineBillQuotation> linesBillQuotationWpf)
         {
             var linesBillQuotation = new FacturationService.BILL_LineBillQuotation[250];
-            for (int i = 0; i < linesBillQuotationWpf.Count - 1; i++)
+            for (int i = 0; i < linesBillQuotationWpf.Count; i++)
             {
                 try
                 {
-                    linesBillQuotation[i] = linesBillQuotationWpf[i].ToLineBillQuotation();
+                    var lines = linesBillQuotationWpf[i].ToLineBillQuotation();
+                    linesBillQuotation[i] = new FacturationService.BILL_LineBillQuotation()
+                    {
+                        BillQuotation_Id = lines.BillQuotation_Id,
+                        DateLine = lines.DateLine,
+                        LineBillQuotation_Id = lines.LineBillQuotation_Id,
+                        Product_Id = lines.Product_Id,
+                        Quantite = lines.Quantite
+                    };
                 }
                 catch (Exception)
                 {

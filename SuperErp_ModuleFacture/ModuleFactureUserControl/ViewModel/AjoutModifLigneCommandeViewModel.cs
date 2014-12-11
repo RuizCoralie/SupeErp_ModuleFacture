@@ -130,8 +130,8 @@ namespace ModuleFactureUserControl.ViewModel
             // Additionne les prix des produits
             foreach (var line in LineBillQuotation)
             {
-                TotalHT = TotalHT;
-                TotalTTC = TotalTTC;
+                TotalHT = TotalHT + line.AmountHT;
+                TotalTTC = TotalTTC + line.AmountTTC;
             }
         }
 
@@ -161,6 +161,8 @@ namespace ModuleFactureUserControl.ViewModel
                 var linesChecked = LineBillQuotation.Where(x => x.IsInBill).ToList();
                 if (linesChecked == null)
                     linesChecked = new List<LineBillQuotation>();
+
+                linesChecked.ForEach(x => x.DateLine = DateTime.Now);
 
                 if (SaveLineBillQuotation != null)
                     SaveLineBillQuotation.Invoke(linesChecked);
