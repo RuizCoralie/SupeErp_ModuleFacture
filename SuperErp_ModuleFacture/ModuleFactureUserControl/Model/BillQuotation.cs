@@ -176,6 +176,7 @@ namespace ModuleFactureUserControl.Model
 
     public enum BillQuotationType
     {
+        All,
         Facture,
         Devis
     }

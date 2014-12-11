@@ -11,16 +11,19 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new BillQuotation();
             try
             {
-                billQuotation.AmountDF = billQuotationService.AmountDF;
-                billQuotation.Vat = billQuotationService.Vat;
-                billQuotation.Type = string.IsNullOrEmpty(billQuotationService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
-                billQuotation.NBill = billQuotationService.NBill;
-                billQuotation.BillQuotation_Id = billQuotationService.BillQuotation_Id;
-                billQuotation.DateBillQuotation = billQuotationService.DateBillQuotation;
-                billQuotation.BILL_Transmitter = billQuotationService.BILL_Transmitter.ToTransmitter();
-                billQuotation.Company = billQuotationService.Company.ToCompany();
-                //billQuotation.BILL_BillQuotationStatus = billQuotationService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
-                //billQuotation.BILL_LineBillQuotation = billQuotationService.BILL_LineBillQuotation.ToLineBillQuotation();
+                if (billQuotationService != null)
+                {
+                    billQuotation.AmountDF = billQuotationService.AmountDF;
+                    billQuotation.Vat = billQuotationService.Vat;
+                    billQuotation.Type = string.IsNullOrEmpty(billQuotationService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
+                    billQuotation.NBill = billQuotationService.NBill;
+                    billQuotation.BillQuotation_Id = billQuotationService.BillQuotation_Id;
+                    billQuotation.DateBillQuotation = billQuotationService.DateBillQuotation;
+                    billQuotation.BILL_Transmitter = billQuotationService.BILL_Transmitter.ToTransmitter();
+                    billQuotation.Company = billQuotationService.Company.ToCompany();
+                    //billQuotation.BILL_BillQuotationStatus = billQuotationService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                    //billQuotation.BILL_LineBillQuotation = billQuotationService.BILL_LineBillQuotation.ToLineBillQuotation();
+                }
             }
             catch (Exception ex)
             {
@@ -33,18 +36,21 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new BillQuotation();
             try
             {
-                billQuotation.AmountDF = billQuotationCompleteService.AmountDF;
-                billQuotation.AmountTTC = billQuotationCompleteService.AmountTTC;
-                billQuotation.BillQuotation_Id = billQuotationCompleteService.BillQuotation_Id;
-                billQuotation.DateBillQuotation = billQuotationCompleteService.DateBillQuotation;
-                billQuotation.NBill = billQuotationCompleteService.NBill;
-                billQuotation.Vat = billQuotationCompleteService.Vat;
-                billQuotation.Type = string.IsNullOrEmpty(billQuotationCompleteService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
-                billQuotation.BILL_LineBillQuotation = billQuotationCompleteService.BILL_LineBillQuotation.ToLineBillQuotation();
-                billQuotation.BILL_Transmitter = billQuotationCompleteService.BILL_Transmitter.ToTransmitter();
-                billQuotation.Company = billQuotationCompleteService.Company.ToCompany();
-                billQuotation.Status = billQuotationCompleteService.BillStatus.ToStatus();
-                //billQuotation.BILL_BillQuotationStatus = billQuotationCompleteService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                if (billQuotationCompleteService != null)
+                {
+                    billQuotation.AmountDF = billQuotationCompleteService.AmountDF;
+                    billQuotation.AmountTTC = billQuotationCompleteService.AmountTTC;
+                    billQuotation.BillQuotation_Id = billQuotationCompleteService.BillQuotation_Id;
+                    billQuotation.DateBillQuotation = billQuotationCompleteService.DateBillQuotation;
+                    billQuotation.NBill = billQuotationCompleteService.NBill;
+                    billQuotation.Vat = billQuotationCompleteService.Vat;
+                    billQuotation.Type = string.IsNullOrEmpty(billQuotationCompleteService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
+                    billQuotation.BILL_LineBillQuotation = billQuotationCompleteService.BILL_LineBillQuotation.ToLineBillQuotation();
+                    billQuotation.BILL_Transmitter = billQuotationCompleteService.BILL_Transmitter.ToTransmitter();
+                    billQuotation.Company = billQuotationCompleteService.Company.ToCompany();
+                    billQuotation.Status = billQuotationCompleteService.BillStatus.ToStatus();
+                    //billQuotation.BILL_BillQuotationStatus = billQuotationCompleteService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                }
             }
             catch (Exception ex)
             {
@@ -57,18 +63,21 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new BillQuotation();
             try
             {
-                billQuotation.AmountDF = billQuotationLightService.AmountDF;
-                billQuotation.DateBillQuotation = billQuotationLightService.DateBillQuotation;
-                billQuotation.NBill = billQuotationLightService.NBill;
-                billQuotation.Vat = billQuotationLightService.Vat;
-                billQuotation.Status = billQuotationLightService.BillStatus.ToStatus();
-                billQuotation.AmountTTC = billQuotationLightService.AmountTTC;
-                billQuotation.BillQuotation_Id = billQuotationLightService.BillQuotation_Id;
-                billQuotation.Type = string.IsNullOrEmpty(billQuotationLightService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
-                //billQuotation.BILL_LineBillQuotation = billQuotationLightService.BILL_LineBillQuotation.ToLineBillQuotation();
-                //billQuotation.BILL_BillQuotationStatus = billQuotationLightService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
-                billQuotation.BILL_Transmitter = billQuotationLightService.BILL_Transmitter.ToTransmitter();
-                billQuotation.Company = billQuotationLightService.Company.ToCompany();
+                if (billQuotationLightService != null)
+                {
+                    billQuotation.AmountDF = billQuotationLightService.AmountDF;
+                    billQuotation.DateBillQuotation = billQuotationLightService.DateBillQuotation;
+                    billQuotation.NBill = billQuotationLightService.NBill;
+                    billQuotation.Vat = billQuotationLightService.Vat;
+                    billQuotation.Status = billQuotationLightService.BillStatus.ToStatus();
+                    billQuotation.AmountTTC = billQuotationLightService.AmountTTC;
+                    billQuotation.BillQuotation_Id = billQuotationLightService.BillQuotation_Id;
+                    billQuotation.Type = string.IsNullOrEmpty(billQuotationLightService.NBill) ? BillQuotationType.Devis : BillQuotationType.Facture;
+                    //billQuotation.BILL_LineBillQuotation = billQuotationLightService.BILL_LineBillQuotation.ToLineBillQuotation();
+                    //billQuotation.BILL_BillQuotationStatus = billQuotationLightService.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                    billQuotation.BILL_Transmitter = billQuotationLightService.BILL_Transmitter.ToTransmitter();
+                    billQuotation.Company = billQuotationLightService.Company.ToCompany();
+                }
             }
             catch (Exception ex)
             {

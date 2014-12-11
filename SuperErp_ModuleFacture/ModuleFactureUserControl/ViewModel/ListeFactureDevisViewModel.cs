@@ -102,9 +102,9 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private double? _MontantMin;
+        private string _MontantMin;
 
-        public double? MontantMin
+        public string MontantMin
         {
             get { return _MontantMin; }
             set
@@ -114,9 +114,9 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private double? _MontantMax;
+        private string _MontantMax;
 
-        public double? MontantMax
+        public string MontantMax
         {
             get { return _MontantMax; }
             set
@@ -258,6 +258,7 @@ namespace ModuleFactureUserControl.ViewModel
             AllStatut.Add(BillQuotationStatutEnum.Refuse);
 
             var status = new List<Status>();
+            status.Add(new Status { Libel = "All Status" });
             Task.Factory.StartNew(() =>
             {
                 try
@@ -301,13 +302,32 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void FilterCommandHandler()
         {
+            var status = SelectedStatut.Libel.Equals("All Status", StringComparison.OrdinalIgnoreCase) ? null : SelectedStatut.ToStatus();
+            bool? isBill = null;
+            if (Type == BillQuotationType.Facture)
+                isBill = true;
+            else if (Type == BillQuotationType.Devis)
+                isBill = false;
+
+            var nomClient = string.IsNullOrEmpty(NomClient) ? null : NomClient;
+            var numFacture = string.IsNullOrEmpty(NumFacture) ? null : NumFacture;
+            var montantMinStr = string.IsNullOrEmpty(MontantMin) ? null : MontantMin;
+            var montantMaxStr = string.IsNullOrEmpty(MontantMax) ? null : MontantMax;
+
+            int? montantMax = null;
+            int? montantMin = null;
+            if (montantMinStr != null)
+                montantMin = Convert.ToInt32(montantMinStr);
+            if (montantMaxStr != null)
+                montantMax = Convert.ToInt32(montantMaxStr);
+
             Task.Factory.StartNew(() =>
             {
                 try
                 {
                     if (StatusStatic.Count != 0)
                     {
-                        var billsQuotationsService = FacturationService.SearchBillQuotation(NomClient, NumFacture, DateFacturation, SelectedStatut.ToStatus(), Convert.ToInt32(MontantMin), Convert.ToInt32(MontantMax), Type == BillQuotationType.Facture);
+                        var billsQuotationsService = FacturationService.SearchBillQuotation(nomClient, numFacture, DateFacturation, status, montantMin, montantMax, isBill);
                         if (billsQuotationsService != null)
                         {
                             var billsQuotation = new List<BillQuotation>();
