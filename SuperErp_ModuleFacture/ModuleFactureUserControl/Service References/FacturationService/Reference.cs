@@ -2021,6 +2021,12 @@ namespace ModuleFactureUserControl.FacturationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/ModifyBillQuotation", ReplyAction="http://tempuri.org/IFacturationService/ModifyBillQuotationResponse")]
         System.Threading.Tasks.Task<bool> ModifyBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetStatus", ReplyAction="http://tempuri.org/IFacturationService/GetStatusResponse")]
+        ModuleFactureUserControl.FacturationService.BILL_Status[] GetStatus();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFacturationService/GetStatus", ReplyAction="http://tempuri.org/IFacturationService/GetStatusResponse")]
+        System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BILL_Status[]> GetStatusAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2104,6 +2110,14 @@ namespace ModuleFactureUserControl.FacturationService {
         
         public System.Threading.Tasks.Task<bool> ModifyBillQuotationAsync(ModuleFactureUserControl.FacturationService.BillQuotationComplete billQuotation) {
             return base.Channel.ModifyBillQuotationAsync(billQuotation);
+        }
+        
+        public ModuleFactureUserControl.FacturationService.BILL_Status[] GetStatus() {
+            return base.Channel.GetStatus();
+        }
+        
+        public System.Threading.Tasks.Task<ModuleFactureUserControl.FacturationService.BILL_Status[]> GetStatusAsync() {
+            return base.Channel.GetStatusAsync();
         }
     }
 }

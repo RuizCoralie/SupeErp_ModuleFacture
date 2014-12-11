@@ -38,6 +38,7 @@ namespace ModuleFactureUserControl.ViewModel
             FacturationService = new FacturationServiceClient();
             ServiceGestionClient = new ClientService.ServiceGestionClientClient();
             IsNewBillQuotation = true;
+            RefreshStatus();
 
             Task.Factory.StartNew(() =>
             {
@@ -74,28 +75,36 @@ namespace ModuleFactureUserControl.ViewModel
         public FactureDevisEditionViewModel(BillQuotation billQuotation)
         {
             FacturationService = new FacturationServiceClient();
+            ServiceGestionClient = new ClientService.ServiceGestionClientClient();
             IsNewBillQuotation = false;
+            //RefreshStatus();
+            BillQuotation = billQuotation;
+            TotalHT = BillQuotation.AmountDF;
+            TotalTTC = BillQuotation.AmountTTC;
             Task.Factory.StartNew(() =>
             {
-                BillQuotation = billQuotation;
-                TotalHT = BillQuotation.AmountDF;
-                TotalTTC = BillQuotation.AmountTTC;
                 try
                 {
                     //Transmitter
                     var transmitter = FacturationService.GetTransmitter();
                     if (transmitter != null)
                     {
-                        transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
-                        SelectedTransmistter = AllTransmitter.SingleOrDefault(x => x.Transmitter_Id == BillQuotation.BILL_Transmitter.Transmitter_Id);
+                        Helpers.Helpers.DispatchService.Invoke(() =>
+                        {
+                            transmitter.ToList().ForEach(x => AllTransmitter.Add(x.ToTransmitter()));
+                            SelectedTransmistter = AllTransmitter.SingleOrDefault(x => x.Transmitter_Id == BillQuotation.BILL_Transmitter.Transmitter_Id);
+                        });
                     }
 
                     //Company
                     var company = ServiceGestionClient.GetListCompany();
                     if (company != null)
                     {
-                        company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
-                        SelectedCompany = AllCompany.SingleOrDefault(x => x.Id == BillQuotation.Company.Id);
+                        Helpers.Helpers.DispatchService.Invoke(() =>
+                        {
+                            company.ToList().ForEach(x => AllCompany.Add(x.ToCompanyClient()));
+                            SelectedCompany = AllCompany.SingleOrDefault(x => x.Id == BillQuotation.Company.Id);
+                        });
                     }
                 }
                 catch (Exception ex)
@@ -201,7 +210,10 @@ namespace ModuleFactureUserControl.ViewModel
 
         public ModuleFactureUserControl.Model.Company SelectedCompany
         {
-            get { return _SelectedCompany; }
+            get
+            {
+                return _SelectedCompany;
+            }
             set
             {
                 _SelectedCompany = value;
@@ -258,6 +270,22 @@ namespace ModuleFactureUserControl.ViewModel
             {
                 _AllStatut = value;
                 RaisePropertyChanged("AllStatut");
+            }
+        }
+
+        private BillQuotationType _SelectedType;
+
+        public BillQuotationType SelectedType
+        {
+            get
+            {
+                return _SelectedType;
+            }
+            set
+            {
+                _SelectedType = value;
+                RefreshStatus();
+                RaisePropertyChanged("SelectedType");
             }
         }
 
@@ -385,6 +413,26 @@ namespace ModuleFactureUserControl.ViewModel
             {
                 TotalHT = TotalHT + line.AmountHT;
                 TotalTTC = TotalTTC + line.AmountTTC;
+            }
+        }
+
+        public void RefreshStatus()
+        {
+            if (IsNewBillQuotation)
+                BillQuotation.Type = SelectedType;
+
+            if (ListeFactureDevisViewModel.StatusStatic != null)
+            {
+                if (BillQuotation.Type == BillQuotationType.Facture)
+                {
+                    BillQuotation.NBill = "1";
+                    BillQuotation.Status = ListeFactureDevisViewModel.StatusStatic[10];
+                }
+                else
+                {
+                    BillQuotation.NBill = "0";
+                    BillQuotation.Status = ListeFactureDevisViewModel.StatusStatic[9];
+                }
             }
         }
 

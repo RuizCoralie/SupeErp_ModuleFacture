@@ -96,55 +96,6 @@
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="BILL_StatusChain" nillable="true" type="tns:BILL_StatusChain" />
-  <xs:complexType name="Company">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="BILL_BillQuotation" nillable="true" type="tns:ArrayOfBILL_BillQuotation" />
-      <xs:element minOccurs="0" name="COMPTA_CustomerJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_CustomerJournalLine" />
-      <xs:element minOccurs="0" name="COMPTA_SupplierJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_SupplierJournalLine" />
-      <xs:element minOccurs="0" name="Company_Contact" nillable="true" type="tns:ArrayOfCompany_Contact" />
-      <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="city" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="postalcode" type="xs:int" />
-      <xs:element minOccurs="0" name="siret" nillable="true" type="xs:string" />
-    </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
-  </xs:complexType>
-  <xs:element name="Company" nillable="true" type="tns:Company" />
-  <xs:complexType name="ArrayOfCOMPTA_CustomerJournalLine">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="COMPTA_CustomerJournalLine" nillable="true" type="tns:COMPTA_CustomerJournalLine" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfCOMPTA_CustomerJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_CustomerJournalLine" />
-  <xs:complexType name="COMPTA_CustomerJournalLine">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
-      <xs:element minOccurs="0" name="amount" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="clientAccount_id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="direction" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="postingDate" nillable="true" type="xs:dateTime" />
-    </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
-  </xs:complexType>
-  <xs:element name="COMPTA_CustomerJournalLine" nillable="true" type="tns:COMPTA_CustomerJournalLine" />
-  <xs:complexType name="COMPTA_SupplierJournalLine">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
-      <xs:element minOccurs="0" name="SupplierAccount_id" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="amount" nillable="true" type="xs:decimal" />
-      <xs:element minOccurs="0" name="direction" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="id" type="xs:long" />
-      <xs:element minOccurs="0" name="postingDate" nillable="true" type="xs:dateTime" />
-    </xs:sequence>
-    <xs:attribute ref="ser:Id" />
-    <xs:attribute ref="ser:Ref" />
-  </xs:complexType>
-  <xs:element name="COMPTA_SupplierJournalLine" nillable="true" type="tns:COMPTA_SupplierJournalLine" />
   <xs:complexType name="BILL_LineBillQuotation">
     <xs:sequence>
       <xs:element minOccurs="0" name="BILL_BillQuotation" nillable="true" type="tns:BILL_BillQuotation" />
@@ -192,6 +143,53 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBILL_Product" nillable="true" type="tns:ArrayOfBILL_Product" />
+  <xs:complexType name="BILL_Vat">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BILL_Product" nillable="true" type="tns:ArrayOfBILL_Product" />
+      <xs:element minOccurs="0" name="DateVat" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Rate" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="Vat_Id" type="xs:long" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="BILL_Vat" nillable="true" type="tns:BILL_Vat" />
+  <xs:complexType name="Company">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BILL_BillQuotation" nillable="true" type="tns:ArrayOfBILL_BillQuotation" />
+      <xs:element minOccurs="0" name="COMPTA_CustomerJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_CustomerJournalLine" />
+      <xs:element minOccurs="0" name="COMPTA_SupplierJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_SupplierJournalLine" />
+      <xs:element minOccurs="0" name="Company_Contact" nillable="true" type="tns:ArrayOfCompany_Contact" />
+      <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="city" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="postalcode" type="xs:int" />
+      <xs:element minOccurs="0" name="siret" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Company" nillable="true" type="tns:Company" />
+  <xs:complexType name="ArrayOfCOMPTA_CustomerJournalLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="COMPTA_CustomerJournalLine" nillable="true" type="tns:COMPTA_CustomerJournalLine" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCOMPTA_CustomerJournalLine" nillable="true" type="tns:ArrayOfCOMPTA_CustomerJournalLine" />
+  <xs:complexType name="COMPTA_CustomerJournalLine">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
+      <xs:element minOccurs="0" name="amount" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="clientAccount_id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="direction" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="postingDate" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="COMPTA_CustomerJournalLine" nillable="true" type="tns:COMPTA_CustomerJournalLine" />
   <xs:complexType name="Company_Contact">
     <xs:sequence>
       <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
@@ -207,23 +205,19 @@
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
   <xs:element name="Company_Contact" nillable="true" type="tns:Company_Contact" />
-  <xs:complexType name="BILL_Vat">
+  <xs:complexType name="COMPTA_SupplierJournalLine">
     <xs:sequence>
-      <xs:element minOccurs="0" name="BILL_Product" nillable="true" type="tns:ArrayOfBILL_Product" />
-      <xs:element minOccurs="0" name="DateVat" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Rate" nillable="true" type="xs:double" />
-      <xs:element minOccurs="0" name="Vat_Id" type="xs:long" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="tns:Company" />
+      <xs:element minOccurs="0" name="SupplierAccount_id" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="amount" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="direction" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="id" type="xs:long" />
+      <xs:element minOccurs="0" name="postingDate" nillable="true" type="xs:dateTime" />
     </xs:sequence>
     <xs:attribute ref="ser:Id" />
     <xs:attribute ref="ser:Ref" />
   </xs:complexType>
-  <xs:element name="BILL_Vat" nillable="true" type="tns:BILL_Vat" />
-  <xs:complexType name="ArrayOfBILL_LineBillQuotation">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BILL_LineBillQuotation" nillable="true" type="tns:BILL_LineBillQuotation" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBILL_LineBillQuotation" nillable="true" type="tns:ArrayOfBILL_LineBillQuotation" />
+  <xs:element name="COMPTA_SupplierJournalLine" nillable="true" type="tns:COMPTA_SupplierJournalLine" />
   <xs:complexType name="ArrayOfCOMPTA_SupplierJournalLine">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="COMPTA_SupplierJournalLine" nillable="true" type="tns:COMPTA_SupplierJournalLine" />
@@ -236,6 +230,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfCompany_Contact" nillable="true" type="tns:ArrayOfCompany_Contact" />
+  <xs:complexType name="ArrayOfBILL_LineBillQuotation">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BILL_LineBillQuotation" nillable="true" type="tns:BILL_LineBillQuotation" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBILL_LineBillQuotation" nillable="true" type="tns:ArrayOfBILL_LineBillQuotation" />
   <xs:complexType name="ArrayOfBILL_Status">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BILL_Status" nillable="true" type="tns:BILL_Status" />

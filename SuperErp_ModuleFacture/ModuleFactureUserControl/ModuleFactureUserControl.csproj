@@ -149,6 +149,9 @@
     <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BillQuotationLight.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BILL_Status.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\FacturationService\ModuleFactureUserControl.FacturationService.BILL_Transmitter.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

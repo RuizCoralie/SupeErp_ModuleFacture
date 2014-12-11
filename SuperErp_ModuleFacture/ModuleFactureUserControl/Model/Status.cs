@@ -1,10 +1,4 @@
 ﻿using ModuleFactureUserControl.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModuleFactureUserControl.Model
 {
@@ -23,29 +17,32 @@ namespace ModuleFactureUserControl.Model
         public string Libel
         {
             get { return _Libel; }
-            set 
-            { 
+            set
+            {
                 _Libel = value;
                 RaisePropertyChanged("Libel");
             }
         }
-        
-        
 
-        private ObservableCollection<BillQuotationStatus> _BILL_BillQuotationStatus;
-        public ObservableCollection<BillQuotationStatus> BILL_BillQuotationStatus
+        //private ObservableCollection<BillQuotationStatus> _BILL_BillQuotationStatus;
+        //public ObservableCollection<BillQuotationStatus> BILL_BillQuotationStatus
+        //{
+        //    get
+        //    {
+        //        if (_BILL_BillQuotationStatus == null)
+        //            _BILL_BillQuotationStatus = new ObservableCollection<BillQuotationStatus>();
+        //        return _BILL_BillQuotationStatus;
+        //    }
+        //    set
+        //    {
+        //        _BILL_BillQuotationStatus = value;
+        //        RaisePropertyChanged("BILL_BillQuotationStatus");
+        //    }
+        //}
+
+        public override string ToString()
         {
-            get
-            {
-                if (_BILL_BillQuotationStatus == null)
-                    _BILL_BillQuotationStatus = new ObservableCollection<BillQuotationStatus>();
-                return _BILL_BillQuotationStatus;
-            }
-            set 
-            { 
-                _BILL_BillQuotationStatus = value;
-                RaisePropertyChanged("BILL_BillQuotationStatus");
-            }
+            return this.Libel;
         }
     }
 }

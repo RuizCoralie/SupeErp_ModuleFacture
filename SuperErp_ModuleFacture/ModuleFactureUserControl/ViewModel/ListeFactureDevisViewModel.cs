@@ -19,6 +19,7 @@ namespace ModuleFactureUserControl.ViewModel
     {
         #region Properties
 
+        public static ObservableCollection<Status> StatusStatic;
         private FacturationServiceClient FacturationService;
 
         #endregion Properties
@@ -29,6 +30,7 @@ namespace ModuleFactureUserControl.ViewModel
         {
             IsBusy = true;
             FacturationService = new FacturationServiceClient();
+            StatusStatic = new ObservableCollection<Model.Status>();
             InitListFiltre();
 
             RefreshListQuotation();
@@ -52,9 +54,9 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private DateTime _DateFacturation;
+        private DateTime? _DateFacturation;
 
-        public DateTime DateFacturation
+        public DateTime? DateFacturation
         {
             get { return _DateFacturation; }
             set
@@ -88,21 +90,21 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private BillQuotationStatutEnum _Statut;
+        private Status _SelectedStatut;
 
-        public BillQuotationStatutEnum Statut
+        public Status SelectedStatut
         {
-            get { return _Statut; }
+            get { return _SelectedStatut; }
             set
             {
-                _Statut = value;
-                RaisePropertyChanged("Statut");
+                _SelectedStatut = value;
+                RaisePropertyChanged("SelectedStatut");
             }
         }
 
-        private double _MontantMin;
+        private double? _MontantMin;
 
-        public double MontantMin
+        public double? MontantMin
         {
             get { return _MontantMin; }
             set
@@ -112,9 +114,9 @@ namespace ModuleFactureUserControl.ViewModel
             }
         }
 
-        private double _MontantMax;
+        private double? _MontantMax;
 
-        public double MontantMax
+        public double? MontantMax
         {
             get { return _MontantMax; }
             set
@@ -155,6 +157,24 @@ namespace ModuleFactureUserControl.ViewModel
             {
                 _AllStatut = value;
                 RaisePropertyChanged("AllStatut");
+            }
+        }
+
+        private ObservableCollection<Status> _Status;
+
+        public ObservableCollection<Status> Status
+        {
+            get
+            {
+                if (_Status == null)
+                    _Status = new ObservableCollection<Status>();
+                return _Status;
+            }
+            set
+            {
+                _Status = value;
+                StatusStatic = Status;
+                RaisePropertyChanged("Status");
             }
         }
 
@@ -236,6 +256,25 @@ namespace ModuleFactureUserControl.ViewModel
             AllStatut.Add(BillQuotationStatutEnum.EnCoursDeRedaction);
             AllStatut.Add(BillQuotationStatutEnum.Payee);
             AllStatut.Add(BillQuotationStatutEnum.Refuse);
+
+            var status = new List<Status>();
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    var statusService = FacturationService.GetStatus();
+                    if (statusService != null)
+                    {
+                        statusService.ToList().ForEach(x => status.Add(x.ToStatus()));
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }).ContinueWith((x) =>
+            {
+                Helpers.Helpers.DispatchService.Invoke(() => { Status = new ObservableCollection<Status>(status); });
+            });
         }
 
         private void PrintCommandHandler(Visual visual)
@@ -266,13 +305,20 @@ namespace ModuleFactureUserControl.ViewModel
             {
                 try
                 {
-                    //var billsQuotationsService = FacturationService.GetBillQuotation();
-                    //if (billsQuotationsService != null)
-                    //{
-                    //    var billsQuotation = new List<BillQuotation>();
-                    //    billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
-                    //    BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
-                    //}
+                    if (StatusStatic.Count != 0)
+                    {
+                        var billsQuotationsService = FacturationService.SearchBillQuotation(NomClient, NumFacture, DateFacturation, SelectedStatut.ToStatus(), Convert.ToInt32(MontantMin), Convert.ToInt32(MontantMax), Type == BillQuotationType.Facture);
+                        if (billsQuotationsService != null)
+                        {
+                            var billsQuotation = new List<BillQuotation>();
+                            billsQuotationsService.ToList().ForEach(x => billsQuotation.Add(x.ToBillQuotation()));
+                            BillsQuotations = new ObservableCollection<BillQuotation>(billsQuotation);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Le service n'a pas encore répondu", "Info", MessageBoxButtons.OK);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -283,15 +329,18 @@ namespace ModuleFactureUserControl.ViewModel
 
         private void CreateBillCommandHandler()
         {
-            var datacontext = new FactureDevisEditionViewModel();
-            var uc = new FactureDevisEdition();
-            uc.DataContext = datacontext;
-            var wnd = new WindowsSimple(uc);
-            datacontext.CloseWindow += wnd.CloseWindowEvent;
-            datacontext.RefreshListQuotationEvent += datacontext_RefreshListQuotationEvent;
-            wnd.Height = 500;
-            wnd.Width = 700;
-            wnd.Show();
+            if (StatusStatic.Count != 0)
+            {
+                var datacontext = new FactureDevisEditionViewModel();
+                var uc = new FactureDevisEdition();
+                uc.DataContext = datacontext;
+                var wnd = new WindowsSimple(uc);
+                datacontext.CloseWindow += wnd.CloseWindowEvent;
+                datacontext.RefreshListQuotationEvent += datacontext_RefreshListQuotationEvent;
+                wnd.Height = 500;
+                wnd.Width = 700;
+                wnd.Show();
+            }
         }
 
         private void datacontext_RefreshListQuotationEvent()
@@ -303,17 +352,24 @@ namespace ModuleFactureUserControl.ViewModel
         {
             try
             {
-                var billQuotationComplete = FacturationService.GetBillQuotation(SelectedBillQuotation.BillQuotation_Id);
-                var selectedBillQuotation = billQuotationComplete.ToBillQuotation();
+                if (StatusStatic.Count != 0)
+                {
+                    var billQuotationComplete = FacturationService.GetBillQuotation(SelectedBillQuotation.BillQuotation_Id);
+                    var selectedBillQuotation = billQuotationComplete.ToBillQuotation();
 
-                var datacontext = new FactureDevisEditionViewModel(selectedBillQuotation);
-                var uc = new FactureDevisEdition();
-                uc.DataContext = datacontext;
-                var wnd = new WindowsSimple(uc);
-                datacontext.CloseWindow += wnd.CloseWindowEvent;
-                wnd.Height = 400;
-                wnd.Width = 600;
-                wnd.Show();
+                    var datacontext = new FactureDevisEditionViewModel(selectedBillQuotation);
+                    var uc = new FactureDevisEdition();
+                    uc.DataContext = datacontext;
+                    var wnd = new WindowsSimple(uc);
+                    datacontext.CloseWindow += wnd.CloseWindowEvent;
+                    wnd.Height = 400;
+                    wnd.Width = 600;
+                    wnd.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Le service n'a pas encore répondu", "Info", MessageBoxButtons.OK);
+                }
             }
             catch (Exception ex)
             {

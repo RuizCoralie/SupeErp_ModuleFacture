@@ -11,12 +11,14 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new FacturationService.BILL_BillQuotation();
             try
             {
-                billQuotation.AmountDF = billQuotationWpf.AmountDF;
                 //billQuotation.BILL_BillQuotationStatus = billQuotationWpf.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                //billQuotation.Company = billQuotationWpf.Company.ToCompany();
                 //billQuotation.BILL_LineBillQuotation = billQuotationService.BILL_LineBillQuotation.ToLineBillQuotation();
-                billQuotation.BILL_Transmitter = billQuotationWpf.BILL_Transmitter.ToTransmitter();
+                //billQuotation.BILL_Transmitter = billQuotationWpf.BILL_Transmitter.ToTransmitter();
+                billQuotation.AmountDF = billQuotationWpf.AmountDF;
+                billQuotation.Transmitter_Id = billQuotationWpf.BILL_Transmitter.Transmitter_Id;
                 billQuotation.BillQuotation_Id = billQuotationWpf.BillQuotation_Id;
-                billQuotation.Company = billQuotationWpf.Company.ToCompany();
+                billQuotation.Company_Id = billQuotationWpf.Company.Id;
                 billQuotation.DateBillQuotation = billQuotationWpf.DateBillQuotation;
                 billQuotation.NBill = billQuotationWpf.NBill;
                 billQuotation.Vat = billQuotationWpf.Vat;
@@ -32,12 +34,13 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new FacturationService.BillQuotationComplete();
             try
             {
-                billQuotation.AmountDF = billQuotationCompleteWpf.AmountDF;
+                //billQuotation.BILL_Transmitter = billQuotationCompleteWpf.BILL_Transmitter.ToTransmitter();
                 //billQuotation.BILL_BillQuotationStatus = billQuotationCompleteWpf.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
+                //billQuotation.Company = billQuotationCompleteWpf.Company.ToCompany();
+                billQuotation.BillStatus = billQuotationCompleteWpf.Status.ToStatus();
+                billQuotation.AmountDF = billQuotationCompleteWpf.AmountDF;
                 billQuotation.BILL_LineBillQuotation = billQuotationCompleteWpf.BILL_LineBillQuotation.ToLineBillQuotation();
-                billQuotation.BILL_Transmitter = billQuotationCompleteWpf.BILL_Transmitter.ToTransmitter();
                 billQuotation.BillQuotation_Id = billQuotationCompleteWpf.BillQuotation_Id;
-                billQuotation.Company = billQuotationCompleteWpf.Company.ToCompany();
                 billQuotation.Company_Id = billQuotationCompleteWpf.Company.Id;
                 billQuotation.Transmitter_Id = billQuotationCompleteWpf.BILL_Transmitter.Transmitter_Id;
                 billQuotation.DateBillQuotation = billQuotationCompleteWpf.DateBillQuotation;
@@ -56,12 +59,14 @@ namespace ModuleFactureUserControl.Mapper
             var billQuotation = new FacturationService.BillQuotationLight();
             try
             {
-                billQuotation.AmountDF = billQuotationLightWpf.AmountDF;
+                //billQuotation.Company = billQuotationLightWpf.Company.ToCompany();
                 //billQuotation.BILL_BillQuotationStatus = billQuotationLightWpf.BILL_BillQuotationStatus.First().ToBillQuotationStatus();
                 //billQuotation.BILL_LineBillQuotation = billQuotationLightService.BILL_LineBillQuotation.ToLineBillQuotation();
-                billQuotation.BILL_Transmitter = billQuotationLightWpf.BILL_Transmitter.ToTransmitter();
+                //billQuotation.BILL_Transmitter = billQuotationLightWpf.BILL_Transmitter.ToTransmitter();
+                billQuotation.AmountDF = billQuotationLightWpf.AmountDF;
                 billQuotation.BillQuotation_Id = billQuotationLightWpf.BillQuotation_Id;
-                billQuotation.Company = billQuotationLightWpf.Company.ToCompany();
+                billQuotation.Company_Id = billQuotationLightWpf.Company.Id;
+                billQuotation.Transmitter_Id = billQuotationLightWpf.BILL_Transmitter.Transmitter_Id;
                 billQuotation.DateBillQuotation = billQuotationLightWpf.DateBillQuotation;
                 billQuotation.NBill = billQuotationLightWpf.NBill;
                 billQuotation.Vat = billQuotationLightWpf.Vat;

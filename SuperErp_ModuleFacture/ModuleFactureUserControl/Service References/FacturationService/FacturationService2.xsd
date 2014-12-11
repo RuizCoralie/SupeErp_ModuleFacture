@@ -102,4 +102,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetStatus">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/SupErp.Entities" minOccurs="0" name="GetStatusResult" nillable="true" type="q9:ArrayOfBILL_Status" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

@@ -62,7 +62,7 @@
             <!--Boutons export / Impression-->
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Choix du type du document :" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" Height="20" />
-                <ComboBox ItemsSource="{Binding AllType}" SelectedItem="{Binding BillQuotation.Type}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" Height="25" Margin="5,0,0,0" />
+                <ComboBox ItemsSource="{Binding AllType}" SelectedItem="{Binding SelectedType,Mode=TwoWay}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanToCollapsedVisibilityConverter}}" Height="25" Margin="5,0,0,0" />
                 <TextBlock Text="{Binding BillQuotation.Type}" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanNegateToCollapsedVisibilityConverter}}" />
                 <TextBlock Text="{Binding BillQuotation.NBill}" Style="{StaticResource textBlockStyleBlack}" Visibility="{Binding IsNewBillQuotation, Converter={StaticResource BooleanNegateToCollapsedVisibilityConverter}}" />
             </StackPanel>
